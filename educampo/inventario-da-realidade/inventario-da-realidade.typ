@@ -17,19 +17,23 @@
 // Word's line box: `n` times the font's line height (ascender + descender +
 // line gap), with the text sitting on its bottom.
 #let edges(n) = (top-edge: n * 1.1499em - 0.212em, bottom-edge: -0.212em)
-#let margin-left = 85.05pt
-#let margin-top = 97pt
+// ABNT NBR 14724 margins.
+#let margins = (left: 30mm, right: 20mm, top: 30mm, bottom: 20mm)
+// Word's header line, though empty on most pages, pushes the body below the
+// top margin.
+#let header-height = 4.2mm
+#let margin-left = margins.left
+#let margin-top = margins.top + header-height
 #let pitch = 1.5 * 1.1499 * 12pt
 
 #set page(
-  width: 595.32pt,
-  height: 841.92pt,
-  margin: (left: margin-left, right: 56.7pt, top: margin-top, bottom: 56.7pt),
+  paper: "a4",
+  margin: (..margins, top: margin-top),
   foreground: context {
     let n = here().page()
     if n in (1, 33) {
       set text(size: 11pt, top-edge: "baseline", bottom-edge: "baseline")
-      place(top + right, dx: -56.7pt, dy: 95.27pt, str(n))
+      place(top + right, dx: -margins.right, dy: 95.27pt, str(n))
     }
   },
 )
