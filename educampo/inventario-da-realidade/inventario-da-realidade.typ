@@ -507,12 +507,12 @@ cuja superior encontra-se o ponto mais alto do município de Guaíba, com altitu
 326 metros. Colonizada em 1890 por suíços-valesanos (Silva, 2022), a região possui \
 vestígios pré-históricos como artefatos cerâmicos da cultura Tupi-Guarani (embora \
 não exista sítio arqueológico conhecido no momento) como fragmentos de panelas e \
-potes. Na zona oriental da Serrinha, localiza-se a aldeia Mbyá-Guarani _Tapé Porã_, \
+potes. Na zona oriental da Serrinha, localiza-se a aldeia Mbyá-Guarani _Tape Porã_, \
 uma área de 143 hectares próxima ao arroio Capivara.
 
 A formação denominada “Serrinha”, que dá nome à localidade pertencente à \
 Barra do Ribeiro, é caracterizada pela incidência de vários cerros em conjunto. São \
-ondulações um tanto altas de de formação granítica antigas, que fazem parte da Serra \
+ondulações um tanto altas de formação granítica antigas, que fazem parte da Serra \
 do Herval, que por sua vez integra a unidade de relevo do Rio Grande do Sul \
 denominada Escudo Sul-rio-grandense. É uma localidade muito acidentada, formada \
 por uma encosta superior, pertencente à localidade denominada de Matias, em \
@@ -565,7 +565,7 @@ encontros de agricultores, bailes e eventos tradicionalistas.
 ) <fig-capela>
 
 #illustration(
-  [Igreja Assembléia de Deus do Nabor],
+  [Igreja Assembleia de Deus do Nabor],
   photo("09-igreja-do-nabor", 453.65pt),
   source: [Cabral (2026)],
 )
@@ -590,7 +590,7 @@ O território possui as seguintes aldeias Mbyá Guarani:
 estreita e vulnerável faixa de terra às margens da rodovia BR-290, entre \
 os km 132 e km 133, na região do Arroio da Divisa, no município de \
 Eldorado do Sul.]
-#item[b)][_Tekoá Tapé Porã (“caminho belo” ou “bom caminho”)._ Localizada em \
+#item[b)][_Tekoá Tape Porã (“caminho belo” ou “bom caminho”)._ Localizada em \
 Guaíba, no Passo Grande, zona rural limítrofe com a Barra do Ribeiro. \
 Possui a EEIEF Arasaty.]
 #item[c)][_Tekoá Porã (“bonita” ou “boa”)._ Localizada na área rural de Barra do \
@@ -610,7 +610,7 @@ Barra do Ribeiro na localidade do Douradilho.]
 #item[g)][_Tekoá Ka'aguy Porã (“mata boa” ou “floresta sagrada”)._ Localizada na \
 área rural do município de Barra do Ribeiro na região do Douradilho.]
 #item[h)][_Tekoá Mirim (“pequena”)._ Localizada em Mariana Pimentel, na \
-localidade de Passod’Areia. Possui a EEIEF Cacique Sepé Tiaraju.]
+localidade de Passo d’Areia. Possui a EEIEF Cacique Sepé Tiaraju.]
 #item[i)][_Tekoá Jate’i Mirim (“abelha jataí pequena”)._ Localizada em Eldorado do \
 Sul, no bairro Parque Eldorado. Faz parte do grupo da Tekoá Pekuruty, \
 que após a enchente de 2024, obteve uma pequena área nessa \
@@ -655,7 +655,7 @@ pais e também ensinamos para os nossos filhos. As casas de taquara e de barro \
 fazem parte da cultura guarani”. Existem algumas edificações em alvenaria nas \
 comunidades, a maioria resquício da ocupação dos antigos proprietários das áreas \
 adquiridas pelo DNIT. As escolas Sepé Tiaraju e Arasaty são construções de \
-alvenaria, sendo a primeira construída para a finalidade escolar, enquanto segunda \
+alvenaria, sendo a primeira construída para a finalidade escolar, enquanto a segunda \
 reaproveita o prédio de uma casa já existente no local.
 
 #illustration(
@@ -670,8 +670,7 @@ A educação nesse território compartilhado — que compreende áreas rurais do
 municípios de Guaíba, Eldorado do Sul, Mariana Pimentel e Barra do Ribeiro — deve \
 ser compreendida a partir de sua ruralidade concreta.
 
-Sob essa perspectiva, as escolas que integram que integram este território \
-educativo são:
+Sob essa perspectiva, as escolas que integram este território educativo são:
 
 #item(left: 18pt)[a)][EMEF Santa Catarina (Logradouro, Guaíba);]
 #item(left: 18pt)[b)][EMEF São Paulo (Morro Santana, Guaíba);]
@@ -768,7 +767,7 @@ as escolas rurais passaram a ofertar apenas os anos iniciais do ensino fundament
 enquanto os estudantes do 6º ao 9º ano são diariamente transportados para a sede \
 municipal.
 
-O Documento Orientador do Território Municipal de Mariana Pimentel (2019,), \
+O Documento Orientador do Território Municipal de Mariana Pimentel (2019), \
 equivalente ao Plano Municipal de Educação, reconhece apenas duas escolas na \
 zona rural e, por esse motivo, são classificadas como escolas do campo. Entretanto, \
 essa interpretação revela-se limitada diante da própria realidade territorial. Segundo o \
@@ -853,15 +852,15 @@ abertas. No entanto, a autora levantou dados bibliográficos que apontam também
 objetivos como a racionalização de custos do poder público, a descentralização dos \
 deveres educacionais do Estado e uma formação escolar voltada majoritariamente ao \
 trabalho urbano, o que acabou por ocasionar o desenraizamento dos sujeitos do \
-campo (BREM, 2015 _apud_ PASTORIO, 2015; JANATA; ANHAIA, 2015).
+campo (BREMM, 2015 _apud_ PASTORIO, 2015; JANATA; ANHAIA, 2015).
 
-No contexto do Rio Grande do Sul, esse processo assume contornos \
-particulares, articulando-se à histórica presença da agricultura familiar e, \
-simultaneamente, ao avanço de modelos produtivos vinculados ao agronegócio. A \
-redução do número de escolas no campo gaúcho acompanhou a e acompanha \
-transformações socioeconômicas mais amplas, como o êxodo rural, a mecanização \
-agrícola e a concentração fundiária, fatores que impactaram diretamente a \
-organização das comunidades rurais e suas instituições educativas ((Wanderley, \
+No contexto do Rio Grande do Sul, esse processo assume contornos
+particulares, articulando-se à histórica presença da agricultura familiar e,
+simultaneamente, ao avanço de modelos produtivos vinculados ao agronegócio. A
+redução do número de escolas no campo gaúcho acompanha
+transformações socioeconômicas mais amplas, como o êxodo rural, a mecanização
+agrícola e a concentração fundiária, fatores que impactaram diretamente a
+organização das comunidades rurais e suas instituições educativas (Wanderley,
 2014; Veiga, 2002).
 
 #blank(1)
@@ -911,10 +910,10 @@ sua visão de mundo. As escolas de ambas as aldeias surgiram de reivindicações
 próprios moradores, que nelas enxergaram um benefício para o grupo. Tanto na \
 EEIEF Cacique Sepé Tiaraju quanto na EEIEF Arasaty, as classes são bilíngues, \
 compostas por professores juruá (não indígenas) e professores Mbyá Guarani (prof. \
-Carmem De Antoni, diretora da escola Arasaty, com. pessoal) A região ainda carece \
+Carmem De Antoni, diretora da escola Arasaty, com. pessoal). A região ainda carece \
 de uma escola indígena de Ensino Médio, embora já exista aprovação para o início \
 dessa modalidade na EEIEF Tekoa Porã (que passará a ser EEEM Tekoa Porã), na \
-aldeia homônima, situada na região do Douradilho, em Barra do Ribeiro(prof. Nelson \
+aldeia homônima, situada na região do Douradilho, em Barra do Ribeiro (prof. Nelson \
 da Silva, diretor na Escola Cacique Sepé Tiaraju). Até que isso se concretize, os \
 estudantes indígenas que desejam prosseguir os estudos precisam se matricular nas \
 escolas de ensino médio dos juruás, as quais também possuem baixa disponibilidade \
@@ -1002,7 +1001,7 @@ O município de Guaíba possui 66 escolas de ensino básico, sendo 30 \
 municipais, 15 estaduais e 21 privadas. Destas, apenas 4 se encontram na zona rural, \
 sendo 2 municipais e 2 estaduais.
 
-Em 2025, o número de matrículas no ensino básico do município foi de19.289 \
+Em 2025, o número de matrículas no ensino básico do município foi de 19.289 \
 estudantes. Deste total, apenas 312 estudantes estavam matriculados nas escolas \
 rurais.
 
@@ -1198,7 +1197,7 @@ sofreu certa transformação.]
 #blank(1)
 
 #q[Quem eram os primeiros habitantes desta região? Quais foram os sujeitos \
-históricos e as ações responsáveis pela pelo êxodo dos Mbyás?]
+históricos e as ações responsáveis pelo êxodo dos Mbyás?]
 
 #a[Na zona próxima à Laguna dos Patos e Lago Guaíba viviam os \
 “Arachanes” e “Tapes” desde os tempos pré-cabralinos. Estes povos originários \
@@ -1208,7 +1207,7 @@ estancieiros, houve o êxodo dos mbyá guarani para outras regiões.]
 
 #blank(1)
 
-#q[O quê era produzido nesta região antes da chegada dos colonizadores? Quais \
+#q[O que era produzido nesta região antes da chegada dos colonizadores? Quais \
 foram as primeiras alterações do modo de produção e qual o impacto social e \
 econômico na região?]
 
@@ -1304,11 +1303,11 @@ local, da qual fui escolhido como patrono.]
 
 #q[Como era e como o professor vê hoje a relação entre a população guaibense, \
 em destaque os moradores da Serrinha e região com as aldeias Mbyá Guarani? O \
-professor, como historiador, poderia nos falar sobre a aldeia _Tapé Porã_?]
+professor, como historiador, poderia nos falar sobre a aldeia _Tape Porã_?]
 
 #a[Eles procuram ter uma boa relação, cada um no seu espaço, sendo que o \
 local é um mosaico de etnias: galegos, alemães, italianos, poloneses etc. Os da aldeia \
-Tapé Porã fixam em uma área concedida pelo governo. É uma antiga fazenda onde a \
+Tape Porã fixam em uma área concedida pelo governo. É uma antiga fazenda onde a \
 aldeia está assentada. Como já mencionei, essa aldeia localizava-se ao lado da BR-\
 116 no Petim e por conta da duplicação desta rodovia federal, o governo achou por \
 bem realocá-los para a região oriental da Serrinha. Atualmente estão sob a chefia do \
@@ -1470,18 +1469,18 @@ LAROQUE, Luís Fernando da Silva. *Guaíba no Contexto Histórico – \
 Arqueológico do Rio Grande do Sul.* Guaíba: Ed. do Autor, 2002.192p. In: \
 PREFEITURA MUNICIPAL DE GUAÍBA. História. Disponível em: \
 \<#url("http://www.guaiba.rs.gov.br:/Conheca_Guaiba/index.html", "http://www.guaiba.rs.gov.br:/Conheca_Guaiba/index.html")>. Acesso em: \
-21.mar.2019.
+21 mar. 2019.
 
 #par(justify: true, linebreaks: "optimized")[JANATA, Natacha E; ANHAIA, Edson M. *Escolas/classes multisseriadas do#jl
 campo: reflexões para a formação docente.* Educação & Realidade, Porto Alegre, \
-v. 40, n. 3, p. 685 704, jul./set. 2015]
+v. 40, n. 3, p. 685-704, jul./set. 2015]
 
-LIBÂNEO, José Carlos. *Didática.* São Paulo: Cortez , 1992.
+LIBÂNEO, José Carlos. *Didática.* São Paulo: Cortez, 1992.
 
 #ref36[MAPA GUARANI. 2017. 280 mil indígenas Guarani vivem em quatro países, \
 diz pesquisa que será apresentada hoje no ATL. 27 de abril de 2017. Disponível em: \
 \<#url("https://racismoambiental.net.br/2017/04/27/280-mil-indigenas-guarani-vivem-em-quatro-paises-da-america-do-sul-diz-pesquisa-que-sera-apresentada-hoje-no-atl/", "https://racismoambiental.net.br/2017/04/27/280-mil-indigenas-guarani-vivem-em-", "quatro-paises-da-america-do-sul-diz-pesquisa-que-sera-apresentada-hoje-no-atl/")>. \
-Acesso em: 20 mar.2019.]
+Acesso em: 20 mar. 2019.]
 
 #ref36[MARIANA PIMENTEL. Prefeitura. *Turismo em Ação: Dica de Turismo!* \
 Disponível em: \
@@ -1504,8 +1503,8 @@ PASTORIO, Eduardo. *Nucleação das escolas do campo: o caso do \
 município de São Gabriel/RS.* UFSM - Programa de Pós-Graduação em Geografia \
 (Dissertação de Mestrado). Santa Maria, 2015.
 
-POUTIGNAT, Fhilippe. *Teoria da Etnicidade. Seguido de Grupos étnicos \
-suas fronteiras de Fredrik Barth.* Fhilippe Poutignat e Jocelyne Streiff-Fernart. \
+POUTIGNAT, Philippe. *Teoria da Etnicidade. Seguido de Grupos étnicos \
+suas fronteiras de Fredrik Barth.* Philippe Poutignat e Jocelyne Streiff-Fenart. \
 (Trad. Élcio Fernandes). São Paulo: UNESP, 1998.
 
 PRADELLA, Luiz Gustavo Souza. *O ‘índio’ genérico: contato em \
