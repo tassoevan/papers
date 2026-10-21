@@ -17,7 +17,7 @@
   body,
 )
 
-#let innerproduct = (u, v) => $lr(angle.l #u, #v angle.r)$
+#let innerproduct = (u, v) => $lr(chevron.l #u, #v chevron.r)$
 #let norm = (u) => $lr(|| #u ||)$
 
 = Séries de Fourier: Uma Abordagem 90% Completa
