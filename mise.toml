@@ -3,3 +3,13 @@ typst = "0.15.1"
 
 [env]
 TYPST_FONT_PATHS = "{{config_root}}/fonts"
+
+[tasks.pdf]
+description = "Regenerate the PDFs from the Typst sources"
+run = '''
+set -e
+find . -name '*.typ' -not -path './.git/*' | while read -r f; do
+  echo "$f"
+  typst compile --creation-timestamp "$(date -r "$f" +%s)" "$f"
+done
+'''
