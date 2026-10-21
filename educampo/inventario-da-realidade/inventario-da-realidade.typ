@@ -29,11 +29,13 @@
 #set page(
   paper: "a4",
   margin: (..margins, top: margin-top),
+  // As in ABNT NBR 14724, the cover is neither counted nor numbered; the
+  // number sits at the top right, 2cm from the top edge.
   foreground: context {
-    let n = here().page()
-    if n in (1, 33) {
-      set text(size: 11pt, top-edge: "baseline", bottom-edge: "baseline")
-      place(top + right, dx: -margins.right, dy: 95.27pt, str(n))
+    let n = here().page() - 1
+    if n > 0 {
+      set text(size: 10pt, ..edges(1))
+      place(top + right, dx: -margins.right, dy: 20mm, str(n))
     }
   },
 )
