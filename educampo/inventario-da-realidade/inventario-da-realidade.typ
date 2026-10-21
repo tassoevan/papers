@@ -1,7 +1,7 @@
-// O leiaute reproduz o documento original do Word: Arial (por meio da Liberation
-// Sans, de métricas compatíveis), 12pt, espaçamento 1,5 entre linhas e texto
-// justificado. As quebras de linha e de página são explícitas, para que cada
-// página corresponda ao original.
+// O texto segue o documento original do Word: Arial (por meio da Liberation Sans,
+// de métricas compatíveis), 12pt, espaçamento 1,5 entre linhas e texto
+// justificado, com as mesmas quebras de linha. Títulos, ilustrações e paginação
+// seguem o modelo de trabalho acadêmico da UFRGS (ABNT NBR 14724).
 
 #let authors = (
   "Alan Dhoni Garcia do Nascimento",
@@ -56,7 +56,7 @@
 #set block(spacing: 0pt)
 #set smartquote(enabled: false)
 
-#let blank(n) = v(n * pitch)
+#let blank(n) = v(n * pitch, weak: true)
 // Coordenadas tiradas do PDF original, dadas como números sem unidade, em pontos.
 #let pt(value) = if type(value) == length { value } else { value * 1pt }
 // Encerra com uma linha justificada um parágrafo que continua na página seguinte.
@@ -87,10 +87,6 @@
 #let centered(bottom, body, size: 12pt) = at(
   margin-left, bottom, size: size, width: 100%,
   align(center, body),
-)
-#let figure-at(x, y, width, height, name) = place(
-  top + left, dx: pt(x) - margin-left, dy: pt(y) - margin-top,
-  image("figuras/" + name + ".jpg", width: width, height: height, fit: "stretch"),
 )
 #let hline(x0, x1, y, thickness) = place(
   top + left, dx: pt(x0) - margin-left, dy: pt(y) - margin-top,
@@ -134,6 +130,33 @@
   justify: false,
   [#box(width: 12.5mm, counter(heading).display(it.numbering))#it.body],
 ))
+// Ilustrações, conforme o modelo: a legenda vem acima ("Figura 1 – Título"), em
+// espaçamento 1,5 e com as linhas seguintes alinhadas depois do travessão; a
+// fonte vem logo abaixo, em 10pt e espaçamento simples. Uma linha em branco
+// separa a ilustração do texto.
+#set figure(gap: 6pt)
+#set figure.caption(position: top)
+#show figure: set align(left)
+#show figure: it => block(above: pitch, below: pitch, it)
+#show figure.caption: it => context {
+  let prefix = [#it.supplement #it.counter.display(it.numbering) – ]
+  par(first-line-indent: 0pt, hanging-indent: measure(prefix).width, prefix + it.body)
+}
+#let illustration(caption, body, source: none, kind: image, supplement: auto) = figure(
+  kind: kind,
+  supplement: supplement,
+  caption: caption,
+  {
+    body
+    if source != none {
+      set text(size: 10pt, ..edges(1))
+      noindent[Fonte: #source.]
+    }
+  },
+)
+#let photo(name, width, height: auto) = block(
+  image("figuras/" + name + ".jpg", width: width, height: height, fit: "stretch"),
+)
 #let item(marker, body, left: 54pt) = pad(left: left, par(first-line-indent: 0pt, hanging-indent: 18pt)[#box(width: 18pt, marker)#body])
 // O texto visível de um link, dividido nas linhas que ocupa.
 #let url(target, ..lines) = link(target, text(fill: rgb("#1155cc"), underline(offset: 1.8pt, stroke: 0.86pt, lines.pos().join(linebreak()))))
@@ -209,19 +232,18 @@ Nossa Senhora do Livramento’ — Guaíba — até meados do século XVIII fazi
 do amplo território conhecido como Brasil Meridional, cujos limites ainda não estavam \
 bem definidos pelas Coroas Ibéricas (Laroque, 2002). Registros oficiais começam a \
 surgir em 1780, quando a Coroa portuguesa concedeu extensas sesmarias. A área \
-que nos interessa passou às mãos de diversos sesmeiros, conforme os mapas (Figura \
-1). A região hoje dividida entre os municípios de Guaíba, Eldorado do Sul, Barra do \
-Ribeiro, Mariana Pimentel e Sertão Santana integrava esse grande bloco de terras \
-chamado Pedras Brancas. Ondas de migração, incentivadas pelo imperador D. Pedro \
-II, trouxeram tempos depois imigrantes poloneses e alemães, os primeiros a chegar. \
-Nessa época já se observa a sobreposição da ocupação imigrante sobre as terras dos \
-guaranis originários, que foram gradualmente perdendo suas terras ancestrais. Ao \
-observar esses mapas, percebe-se que a região permaneceu como uma mesma \
-unidade política até o fim da década de 1950, sendo que a maior parte das \
-emancipações ocorreram a partir da década de 1980, o que explica, em parte, a \
-profunda relação entre os territórios que hoje constituem seis municípios. Além disso, \
-é comum os moradores dessa região utilizarem serviços e recursos de mais de um \
-município — muitas vezes diariamente — para reproduzir seus modos de vida, devido \
+que nos interessa passou às mãos de diversos sesmeiros, conforme os mapas (Figuras #ref(<fig-sesmeiros>, supplement: none) e #ref(<fig-limites>, supplement: none)). A região hoje dividida entre os municípios de Guaíba, Eldorado do Sul, Barra do
+Ribeiro, Mariana Pimentel e Sertão Santana integrava esse grande bloco de terras
+chamado Pedras Brancas. Ondas de migração, incentivadas pelo imperador D. Pedro
+II, trouxeram tempos depois imigrantes poloneses e alemães, os primeiros a chegar.
+Nessa época já se observa a sobreposição da ocupação imigrante sobre as terras dos
+guaranis originários, que foram gradualmente perdendo suas terras ancestrais. Ao
+observar esses mapas, percebe-se que a região permaneceu como uma mesma
+unidade política até o fim da década de 1950, sendo que a maior parte das
+emancipações ocorreram a partir da década de 1980, o que explica, em parte, a
+profunda relação entre os territórios que hoje constituem seis municípios. Além disso,
+é comum os moradores dessa região utilizarem serviços e recursos de mais de um
+município — muitas vezes diariamente — para reproduzir seus modos de vida, devido
 à característica fronteiriça do território.
 
 Geograficamente, podemos considerar que o território analisado faz parte da \
@@ -230,25 +252,25 @@ municípios situados ao longo da margem oeste da Lagoa dos Patos e do Lago Guaí
 caracterizada pelo encontro de ecossistemas campestres e florestais (Mata Atlântica \
 e Pampa), possuindo importância histórica e cultural singular, sendo habitada \
 milenarmente pelos Mbyás.
-#blank(2)
-#noindent[Fig.1 Mapa feito pela turma do 6º. Ano da EMEF São Paulo, referenciando a aldeia \
-Guarani com a qual compartilha o território rural de Guaíba, junho/2026.]
-#blank(1)
-#v(6.9pt)
-#block(image("figuras/01.jpg", width: 453.65pt, height: 269.75pt, fit: "stretch"))
 
-#pagebreak()
+#illustration(
+  [Mapa feito pela turma do 6º. Ano da EMEF São Paulo, referenciando a aldeia Guarani com a qual compartilha o território rural de Guaíba, junho/2026],
+  photo("01-mapa-da-aldeia", 453.65pt),
+  source: [Cabral (2026)],
+)
 
-#noindent[Figura 2 – Localização dos primeiros sesmeiros do Território (Silva, 2008)]
-#figure-at(85.0, 124.67, 258.44pt, 307.3pt, "02")
-#figure-at(85.0, 439.07, 256.6pt, 335.99pt, "03")
-#at(382.0, 463.4, width: 158pt)[Fig.3 Limites do município de \
-Guaíba (Prefeitura Municipal \
-de Guaíba, 2002)]
+#illustration(
+  [Localização dos primeiros sesmeiros do Território],
+  photo("02-mapa-dos-sesmeiros", 90% * 258.44pt, height: 90% * 307.3pt),
+  source: [Silva (2008)],
+) <fig-sesmeiros>
 
-#pagebreak()
+#illustration(
+  [Limites do município de Guaíba],
+  photo("03-limites-de-guaiba", 90% * 256.6pt),
+  source: [Prefeitura Municipal de Guaíba (2002)],
+) <fig-limites>
 
-#blank(1)
 Na última década, a região da Costa Doce ganhou destaque em estudos \
 socioambientais devido às obras de duplicação da rodovia BR-116, no trecho entre \
 Guaíba e Pelotas. Como medida de compensação socioambiental, o processo \
@@ -391,7 +413,7 @@ Barracão.]
 #item(left: 18pt)[e)][Microbacia do arroio Ribeiro: arroio Cadeia, arroio da Estiva; Açude dos Garcia.]
 == Cascata do Português
 
-A Cascata do Português (Figura 4) é um dos principais destinos de ecoturismo \
+A Cascata do Português (@fig-cascata) é um dos principais destinos de ecoturismo \
 da Costa Doce, localizada a cerca de 7 km do centro de Mariana Pimentel e a apenas \
 80 km de Porto Alegre. É uma propriedade particular muito procurada por famílias e \
 entusiastas do campismo.
@@ -399,7 +421,7 @@ entusiastas do campismo.
 == Pedra Equilibrada
 
 #set par(first-line-indent: indent(35.4pt))
-Situada a cerca de 7 km do centro, a Pedra Equilibrada (Figura 5) é uma \
+Situada a cerca de 7 km do centro, a Pedra Equilibrada (@fig-pedra) é uma \
 intrigante e gigante formação rochosa que se equilibra misteriosamente sobre outra \
 estrutura de pedra. O acesso é feito por uma propriedade particular gratuita, exigindo \
 apenas uma curta caminhada em campo aberto. Do topo, tem-se uma linda vista \
@@ -407,16 +429,17 @@ panorâmica da região de morros.
 
 #set par(first-line-indent: indent(36pt))
 
-#pagebreak()
+#illustration(
+  [Cascata do Português],
+  photo("04-cascata-do-portugues", 362.2pt),
+  source: [Griszewski (2018)],
+) <fig-cascata>
 
-#noindent[Figura 4 – Cascata do Português]
-#figure-at(85.0, 124.67, 362.2pt, 271.53pt, "04")
-#at(85.0, 407.7, size: 10pt)[Fonte: Griszewski (2018)]
-#at(85.0, 437.2)[Figura 5 – Pedra Equilibrada]
-#figure-at(85.0, 444.02, 246.1pt, 246.1pt, "05")
-#at(85.0, 701.7, size: 10pt)[Fonte: Prefeitura de Mariana Pimentel (2022)]
-
-#pagebreak()
+#illustration(
+  [Pedra Equilibrada],
+  photo("05-pedra-equilibrada", 246.1pt),
+  source: [Prefeitura de Mariana Pimentel (2022)],
+) <fig-pedra>
 
 == Morro do Papaléo
 
@@ -449,12 +472,9 @@ ambiental e visitação controlada.
 
 Representa um importante patrimônio natural por conservar remanescentes de \
 vegetação nativa do Bioma Pampa em transição com a Mata Atlântica, protegendo a \
-fauna, a flora, os recursos hídricos e a paisagem regional. A área desempenha papel#jl
-
-#pagebreak()
-
-#noindent[fundamental na manutenção da biodiversidade, funcionando como refúgio para \
-diversas espécies de animais e plantas características da região.]
+fauna, a flora, os recursos hídricos e a paisagem regional. A área desempenha papel \
+fundamental na manutenção da biodiversidade, funcionando como refúgio para \
+diversas espécies de animais e plantas características da região.
 
 Além de sua importância ecológica, a reserva possui valor científico e \
 educativo, servindo de espaço para estudos sobre conservação ambiental, \
@@ -490,8 +510,6 @@ não exista sítio arqueológico conhecido no momento) como fragmentos de panela
 potes. Na zona oriental da Serrinha, localiza-se a aldeia Mbyá-Guarani _Tapé Porã_, \
 uma área de 143 hectares próxima ao arroio Capivara.
 
-#pagebreak()
-
 A formação denominada “Serrinha”, que dá nome à localidade pertencente à \
 Barra do Ribeiro, é caracterizada pela incidência de vários cerros em conjunto. São \
 ondulações um tanto altas de de formação granítica antigas, que fazem parte da Serra \
@@ -505,11 +523,18 @@ d’água da microbacia, que vai desaguar no Guaíba. O arroio Capivara faz a di
 entre os municípios de Guaíba e Barra do Ribeiro.
 
 #set par(first-line-indent: indent(36pt))
-#figure-at(77.9, 331.65, 215.99pt, 162.0pt, "06")
-#figure-at(293.9, 331.65, 215.06pt, 161.3pt, "07")
-#at(85.2, 520.5, width: 416.4pt)[Fig.6 Vista panorâmica da região da Serrinha; o Lago Guaíba aparece ao fundo \
-à esquerda. Abaixo, Fig.7, o Cerro Negro, em segundo plano.]
-#figure-at(77.9, 555.85, 431.03pt, 220.1pt, "08")
+
+#illustration(
+  [Vista panorâmica da região da Serrinha; o Lago Guaíba aparece ao fundo à esquerda],
+  stack(dir: ltr, photo("06a-panorama-da-serrinha", 215.99pt), photo("06b-panorama-da-serrinha", 215.06pt)),
+  source: [Cabral (2026)],
+)
+
+#illustration(
+  [O Cerro Negro, em segundo plano],
+  photo("07-cerro-negro", 431.03pt),
+  source: [Cabral (2026)],
+)
 
 = Organização sociopolítica
 == Capelas e igrejas
@@ -517,7 +542,7 @@ entre os municípios de Guaíba e Barra do Ribeiro.
 Na área rural e em bairros próximos encontram-se capelas que exercem \
 importante papel comunitário:
 
-#item[●][Capela Santa Ana (Figura 4).]
+#item[●][Capela Santa Ana (@fig-capela).]
 #item[●][Capela São Francisco de Assis.]
 #item[●][Capela Senhor do Bom Fim.]
 #item[●][Igreja Assembleia de Deus, no entroncamento das Estradas do Petim e \
@@ -533,14 +558,17 @@ as manifestações mais frequentes destacam-se as festas de padroeiros, almoços
 comunitários, festas juninas, confraternizações organizadas pelas escolas do campo, \
 encontros de agricultores, bailes e eventos tradicionalistas.
 
-#at(85.0, 516.5)[Figura#h(0.2778em) – Capela Santa Ana]
-#figure-at(85.0, 523.34, 385.85pt, 243.48pt, "09")
-#at(85.0, 778.3, size: 10pt)[Fonte: Molnar (2026)]
+#illustration(
+  [Capela Santa Ana],
+  photo("08-capela-santa-ana", 385.85pt, height: 243.48pt),
+  source: [Molnar (2026)],
+) <fig-capela>
 
-#pagebreak()
-
-#noindent[Fig. Igreja Assembléia de Deus do Nabor]
-#block(image("figuras/10.jpg", width: 453.65pt, height: 328.8pt, fit: "stretch"))
+#illustration(
+  [Igreja Assembléia de Deus do Nabor],
+  photo("09-igreja-do-nabor", 453.65pt),
+  source: [Cabral (2026)],
+)
 == Cemitério Passo Grande
 
 O Cemitério Passo Grande é um pequeno cemitério rural localizado na \
@@ -553,8 +581,6 @@ famílias que ocuparam a região desde o século XIX. Em muitas comunidades rura
 do Rio Grande do Sul, cemitérios como este foram implantados próximos às antigas \
 capelas ou às sedes das fazendas, tornando-se espaços de referência para a \
 identidade comunitária e para a preservação da memória das gerações locais.
-
-#pagebreak()
 
 == Aldeias Mbyá
 
@@ -588,12 +614,9 @@ localidade de Passod’Areia. Possui a EEIEF Cacique Sepé Tiaraju.]
 #item[i)][_Tekoá Jate’i Mirim (“abelha jataí pequena”)._ Localizada em Eldorado do \
 Sul, no bairro Parque Eldorado. Faz parte do grupo da Tekoá Pekuruty, \
 que após a enchente de 2024, obteve uma pequena área nessa \
-localidade, para onde se transferiram parte dos moradores da aldeia. A#jl]
-
-#pagebreak()
-
-#pad(left: 72pt, noindent[escola, que antes funcionava na comunidade do arroio da Divisa, \
-transferiu-se para a Jate’i Mirim, por falta de crianças na Tekoá Pekuruty.])
+localidade, para onde se transferiram parte dos moradores da aldeia. A \
+escola, que antes funcionava na comunidade do arroio da Divisa, \
+transferiu-se para a Jate’i Mirim, por falta de crianças na Tekoá Pekuruty.]
 #item[j)][_Acampamento Arroio do Conde (também conhecido como \
 Acampamento do Ype)._ Localizado dentro do território urbano de \
 Guaíba, na Estrada do Conde, próximo à divisa dos municípios de \
@@ -635,16 +658,11 @@ adquiridas pelo DNIT. As escolas Sepé Tiaraju e Arasaty são construções de \
 alvenaria, sendo a primeira construída para a finalidade escolar, enquanto segunda \
 reaproveita o prédio de uma casa já existente no local.
 
-#blank(1)
-#v(6.86pt)
-#block(image("figuras/11.jpg", width: 473.18pt, height: 354.9pt, fit: "stretch"))
-#v(7.5pt)
-#block[
-  #set text(..edges(1.16))
-  #noindent[Fig. 7 Alunos da EEEM Gonçalves Lêdo e alunos da Tekoa Mirim em frente à escola \
-  EEIEF Cacique Sepé Tiaraju, em Mariana Pimentel, território compartilhado, \
-  maio/2026.]
-]
+#illustration(
+  [Alunos da EEEM Gonçalves Lêdo e alunos da Tekoa Mirim em frente à escola EEIEF Cacique Sepé Tiaraju, em Mariana Pimentel, território compartilhado, maio/2026],
+  photo("10-alunos-na-sepe-tiaraju", 100%),
+  source: [Cabral (2026)],
+)
 
 = Educação e organização escolar
 
@@ -682,14 +700,13 @@ colega Francine Vargas. No entanto, é importante colocar que, frequentemente, \
 alunos do Bom Retiro vem estudar na EMEF São Paulo, havendo esse trânsito de \
 alunos entre a escola Sergipe e a São Paulo.
 
-#pagebreak()
-
 #set par(first-line-indent: indent(35.4pt))
-#figure-at(42.5, 103.97, 513.15pt, 257.85pt, "12")
-#v(382.6pt - margin-top - pitch)
-#pad(left: -42.55pt, noindent[Fig.8 Território Educativo Compartilhado entre Barra do Ribeiro, Guaíba e Mariana Pimentel \
-representado pela área do polígono. As escolas estão assinaladas pelos ícones amarelos.])
-#blank(1)
+
+#illustration(
+  [Território Educativo Compartilhado entre Barra do Ribeiro, Guaíba e Mariana Pimentel representado pela área do polígono. As escolas estão assinaladas pelos ícones amarelos],
+  photo("11-territorio-educativo", 100%),
+  source: [Cabral (2026)],
+)
 
 A seguir, apresentaremos um histórico do desenvolvimento das iniciativas \
 educacionais neste território compartilhado, desde as primeiras escolas até a \
@@ -709,20 +726,23 @@ representavam uma etapa intermediária rumo à constituição dos grupos escolar
 primeiro grupo escolar estadual do município foi o _Grupo Escolar Gonçalves Lêdo_, \
 criado pelo Decreto nº 7.675, de janeiro de 1939.
 
-#pagebreak()
+#illustration(
+  [Antiga escola de Mariana Pimentel, não identificada, década de 1940],
+  photo("12-antiga-escola", 377.15pt, height: 281.7pt),
+  source: [Adriano Baum (arq. Pessoal)],
+)
 
-#noindent[Figura 9. Antiga escola de Mariana Pimentel, não identificada, década de 1940.]
-#noindent[Fonte Adriano Baum (arq. Pessoal)]
-#figure-at(85.0, 145.37, 377.15pt, 281.7pt, "13")
-#figure-at(85.0, 434.27, 374.7pt, 211.3pt, "14")
-#at(85.0, 687.2, width: 100%, justify: false)[Fig.10 Prédio abandonado da antiga E.M.José de Anchieta, linha Vasques, Mariana \
-Pimentel.]
+#illustration(
+  [Prédio abandonado da antiga E.M.José de Anchieta, linha Vasques, Mariana Pimentel],
+  photo("13-escola-jose-de-anchieta", 374.7pt),
+  source: [Cabral (2026)],
+)
 
-#pagebreak()
-
-#figure-at(85.0, 103.97, 433.5pt, 243.75pt, "15")
-#at(85.0, 366.5, size: 10pt)[Fig.7 EEEM Gonçalves Lêdo e João Ziulkoski Filho, em Mariana Pimentel. Fonte: Cabral (2026)]
-#v(395.6pt - margin-top - pitch)
+#illustration(
+  [EEEM Gonçalves Lêdo e João Ziulkoski Filho, em Mariana Pimentel],
+  photo("14-goncalves-ledo-e-ziulkoski", 433.5pt),
+  source: [Cabral (2026)],
+)
 
 Em 1952, funcionavam na região doze escolas municipais distribuídas por \
 diferentes localidades rurais. Quando ocorreu a emancipação de Mariana Pimentel, \
@@ -744,12 +764,9 @@ a Escola Municipal de Ensino Fundamental João Ziulkoski Filho, localizada na á
 urbana do município. Posterior à municipalização, ocorreu um novo processo de \
 nucleação escolar que resultou na extinção da EMEF Castro Alves e na concentração \
 dos anos finais do Ensino Fundamental na EMEF João Ziulkoski Filho. Desde então, \
-as escolas rurais passaram a ofertar apenas os anos iniciais do ensino fundamental,#jl
-
-#pagebreak()
-
-#noindent[enquanto os estudantes do 6º ao 9º ano são diariamente transportados para a sede \
-municipal.]
+as escolas rurais passaram a ofertar apenas os anos iniciais do ensino fundamental, \
+enquanto os estudantes do 6º ao 9º ano são diariamente transportados para a sede \
+municipal.
 
 O Documento Orientador do Território Municipal de Mariana Pimentel (2019,), \
 equivalente ao Plano Municipal de Educação, reconhece apenas duas escolas na \
@@ -782,12 +799,9 @@ de Assis. Outras escolas surgiram ao longo das décadas: Almirante Barroso, Dom 
 Pedro I, Almirante Tamandaré e Escola Municipal Anita Garibaldi. Esta última \
 instituição recebeu diferentes denominações, como E.M. Antônio de Souza Neto, e, \
 finalmente, E. M. Adão Adolfo Liebig, em 1969 — refletindo sucessivas \
-reorganizações administrativas. Em 1971 foi implantado um Curso Supletivo Noturno,#jl
-
-#pagebreak()
-
-#noindent[seguido, também no noturno, pelos Cursos de Madureza, oferecendo oportunidades \
-educacionais para jovens e adultos da região.]
+reorganizações administrativas. Em 1971 foi implantado um Curso Supletivo Noturno, \
+seguido, também no noturno, pelos Cursos de Madureza, oferecendo oportunidades \
+educacionais para jovens e adultos da região.
 
 Na encosta superior funcionou ainda a Escola Municipal Provisória da Serrinha, \
 criada em 1967. Em 1977 passou a denominar-se Escola Municipal de 1º Grau \
@@ -822,8 +836,6 @@ Catarina e a EMEF São Paulo. Esta última manteve-se ativa porque foi contempla
 com um prédio novo financiado, construído em uma área cedida em regime de \
 comodato pelo proprietário de uma das fazendas locais (Sr. Walter Herz). Esse fato \
 fortaleceu sua oferta de ensino, tornando-a uma escola-polo em 1995.
-
-#pagebreak()
 
 As situações descritas para o contexto rural dos três municípios convergem \
 com o que foi evidenciado por Bremm (2015), que relata uma reconfiguração política \
@@ -860,18 +872,15 @@ tendo como principal instituição a EEEM Gonçalves Lêdo. Os estudantes das \
 localidades de Matias e Morro Santana, em Guaíba, costumam se deslocar para \
 estudar nela. Já aqueles que residem no Passo da Taquara e no Petim, em geral, \
 optam por escolas do centro de Guaíba, em razão da linha de ônibus que atende a \
-essa área. Da mesma forma, os alunos do Logradouro precisam viajar até a sede do#jl
-
-#pagebreak()
-
-#noindent[município utilizando o transporte coletivo local. Os jovens da Serrinha e do Faxinal \
+essa área. Da mesma forma, os alunos do Logradouro precisam viajar até a sede do \
+município utilizando o transporte coletivo local. Os jovens da Serrinha e do Faxinal \
 também precisam se deslocar para sede do munícipio de Barra do Ribeiro, por meio \
 de transporte escolar, se quiserem cursar o Ensino Médio – agora percorrendo não \
 somente 20 quilômetros, mas pelo menos 30 quilômetros para chegar à escola, 60 \
 Km por dia, a maior parte em estradas de chão batido. Por fim, os residentes do \
 Boqueirão dividem-se entre a Escola Gonçalves Lêdo e a sede de Barra do Ribeiro, \
 conforme a localização de suas residências, uma vez que a comunidade está dividida \
-geograficamente entre os dois municípios.]
+geograficamente entre os dois municípios.
 
 Em todos os cenários, a continuidade dos estudos no Ensino Médio exige \
 grandes deslocamentos. O município de Mariana Pimentel apresenta a estrutura mais \
@@ -898,11 +907,8 @@ impactos na cultura local. Por outro lado, essa aquisição garantiu a criação
 para os Mbyá Guarani na costa oeste da Lagoa dos Patos. Vale destacar que, para \
 essa comunidade, o território onde estão inseridas as _Tekoás_ constitui uma área \
 tradicional que não comporta delimitações espaciais rígidas, conceito que destoa de \
-sua visão de mundo. As escolas de ambas as aldeias surgiram de reivindicações dos#jl
-
-#pagebreak()
-
-#noindent[próprios moradores, que nelas enxergaram um benefício para o grupo. Tanto na \
+sua visão de mundo. As escolas de ambas as aldeias surgiram de reivindicações dos \
+próprios moradores, que nelas enxergaram um benefício para o grupo. Tanto na \
 EEIEF Cacique Sepé Tiaraju quanto na EEIEF Arasaty, as classes são bilíngues, \
 compostas por professores juruá (não indígenas) e professores Mbyá Guarani (prof. \
 Carmem De Antoni, diretora da escola Arasaty, com. pessoal) A região ainda carece \
@@ -920,7 +926,7 @@ adaptação, são, de modo geral, bem recebidos e respeitados pela comunidade \
 escolar. Existe uma preocupação do corpo docente em integrá-los e há um manifesto \
 interesse no aprendizado desses estudantes, muito embora seja perceptível a falta de \
 preparo técnico dos professores para atuar diretamente com a especificidade da \
-cultura Guarani.]
+cultura Guarani.
 
 As relações entre as escolas indígenas e não indígenas ainda são incipientes, \
 restringindo-se, na maioria das vezes, a visitas pontuais às aldeias. Apesar de \
@@ -936,12 +942,9 @@ práticas educativas cooperativas, incluindo a formação continuada integrada d
 professores, planejamento de projetos interescolares compartilhados e intercâmbios \
 culturais. Até mesmo a articulação conjunta de políticas de transporte e alimentação \
 escolar estaria no horizonte das possibilidades de integração. Entretanto, nota-se que \
-tais iniciativas ainda ocorrem de forma bastante limitada. Predomina uma organização#jl
-
-#pagebreak()
-
-#noindent[em que cada escola atua isoladamente, sem espaços permanentes de planejamento \
-ou de desenvolvimento de ações integradas.]
+tais iniciativas ainda ocorrem de forma bastante limitada. Predomina uma organização \
+em que cada escola atua isoladamente, sem espaços permanentes de planejamento \
+ou de desenvolvimento de ações integradas.
 
 Sob a perspectiva da Educação do Campo, todas essas instituições \
 compartilham desafios e potencialidades comuns. Entre eles, destacam-se os \
@@ -962,48 +965,36 @@ como os PPPs e currículos das demais escolas do campo do território podem vir 
 modificados e reelaborados visando construir essa imagem para seus estudantes e \
 professores.
 
-#pagebreak()
+#illustration(
+  [Estudantes Guarani integrados à rotina escolar na Gonçalves Lêdo, 1º. ano noturno],
+  photo("15-estudantes-guarani-no-noturno", 139.55pt),
+  source: [Cabral (2026)],
+)
 
-#figure-at(88.0, 104.02, 139.55pt, 259.48pt, "16")
-#figure-at(227.55, 103.98, 145.9pt, 259.5pt, "17")
-#at(394.8, 121.7, size: 11pt, justify: false)[
-  Fig. 11 Estudantes \
-  Guarani integrados à \
-  rotina escolar na \
-  Gonçalves Lêdo, 1º. ano \
-  noturno. \
-  \
-  Fig. 12 Estudante Guarani \
-  em sala copiando \
-  exercícios de matemática \
-  que tentam contextualizar \
-  a cultura indígena em sua \
-  proposta; notar que isso \
-  se deu em abril de 2026.
-]
-#figure-at(85.2, 394.42, 152.4pt, 203.2pt, "19")
-#figure-at(259.65, 391.12, 278.4pt, 208.8pt, "18")
-#at(95.2, 628.7, width: 419.4pt)[
-  Fig.13 Cartaz com fotos representando momento de troca cultural entre os \
-alunos guarani e juruá, na Gonçalves Lêdo, com elaboração de tipa e \
-degustação.
+#illustration(
+  [Estudante Guarani em sala copiando exercícios de matemática que tentam contextualizar a cultura indígena em sua proposta; notar que isso se deu em abril de 2026],
+  photo("16-estudante-guarani-em-sala", 145.9pt),
+  source: [Cabral (2026)],
+)
 
-  Fig. 14. À direita: visita das turmas de ensino médio da mesma escola à Tekoá \
-Mirim, onde vivem os colegas guarani.
-]
+#illustration(
+  [Cartaz com fotos representando momento de troca cultural entre os alunos guarani e juruá, na Gonçalves Lêdo, com elaboração de tipa e degustação],
+  photo("17-cartaz-de-troca-cultural", 152.4pt),
+  source: [Cabral (2026)],
+)
 
-#pagebreak()
+#illustration(
+  [Visita das turmas de ensino médio da Gonçalves Lêdo à Tekoá Mirim, onde vivem os colegas guarani],
+  photo("18-visita-a-tekoa-mirim", 278.4pt),
+  source: [Cabral (2026)],
+)
 
-#figure-at(85.0, 103.98, 340.1pt, 255.08pt, "20")
-#at(449.5, 132.0, justify: false)[
-  Fig. 15 Cartaz \
-  elaborado \
-  pelos alunos \
-  guarani, com \
-  desenho feito \
-  por um deles.
-]
-#v(452.5pt - margin-top - pitch)
+#illustration(
+  [Cartaz elaborado pelos alunos guarani, com desenho feito por um deles],
+  photo("19-cartaz-povos-originarios", 340.1pt),
+  source: [Cabral (2026)],
+)
+
 == Dados estatísticos sobre educação básica nos municípios estudados
 === Guaíba
 
@@ -1044,73 +1035,83 @@ dos quais 36 trabalhavam nas escolas rurais.
 
 #set par(first-line-indent: indent(36pt))
 
-#v(15.6pt)
-#anchored(379.1, 494.0)[
-  #at(92.1, 399.8)[Tabela 1 – Relação do número de escolas, estudantes e docentes por município]
-  #{
-    let cell(x0, x1, bottom, body) = at(x0, bottom, size: 11pt, width: x1 - x0, align(center, body))
-    let columns = ((85.0, 182.5), (183.3, 253.0), (253.7, 309.6), (310.4, 375.3), (376.0, 425.2), (426.0, 489.3), (490.1, 537.7))
-    let groups = ((183.3, 309.6, "N° Escolas"), (310.4, 425.2, "N° Estudantes"), (426.0, 537.7, "N° Docentes"))
-    let rows = (
-      ("Guaíba", "62", "4", "18977", "312", "1056", "44"),
-      ("Mariana Pimentel", "3", "3", "463", "172", "29", "18"),
-      ("Barra do Ribeiro", "9", "6", "1866", "355", "117", "36"),
-    )
+#illustration(
+  [Relação do número de escolas, estudantes e docentes por município],
+  kind: table,
+  source: [Elaboração própria],
+  anchored(406.7, 494.0)[
+    #{
+      let cell(x0, x1, bottom, body) = at(x0, bottom, size: 11pt, width: x1 - x0, align(center, body))
+      let columns = ((85.0, 182.5), (183.3, 253.0), (253.7, 309.6), (310.4, 375.3), (376.0, 425.2), (426.0, 489.3), (490.1, 537.7))
+      let groups = ((183.3, 309.6, "N° Escolas"), (310.4, 425.2, "N° Estudantes"), (426.0, 537.7, "N° Docentes"))
+      let rows = (
+        ("Guaíba", "62", "4", "18977", "312", "1056", "44"),
+        ("Mariana Pimentel", "3", "3", "463", "172", "29", "18"),
+        ("Barra do Ribeiro", "9", "6", "1866", "355", "117", "36"),
+      )
 
-    hline(85.0, 538.4, 406.7, 0.7pt)
-    for x in (309.6, 425.2, 537.7) { vline(x, 407.4, 422.4, 0.8pt) }
-    hline(182.5, 538.7, 422.4, 1pt)
-    hline(182.5, 538.1, 447.2, 0.9pt)
-    hline(85.0, 538.1, 493.3, 0.7pt)
+      hline(85.0, 538.4, 406.7, 0.7pt)
+      for x in (309.6, 425.2, 537.7) { vline(x, 407.4, 422.4, 0.8pt) }
+      hline(182.5, 538.7, 422.4, 1pt)
+      hline(182.5, 538.1, 447.2, 0.9pt)
+      hline(85.0, 538.1, 493.3, 0.7pt)
 
-    cell(85.0, 182.5, 420.1, strong[Municípios])
-    for (x0, x1, title) in groups { cell(x0, x1, 420.6, strong(title)) }
-    for (j, (x0, x1)) in columns.slice(1).enumerate() {
-      cell(x0, x1, 441.3, strong(if calc.even(j) [Urbana] else [Rural]))
-    }
-    for (i, row) in rows.enumerate() {
-      let bottom = 461.3 + i * 15
-      at(89.1, bottom, size: 11pt, row.at(0))
-      for (j, (x0, x1)) in columns.slice(1).enumerate() { cell(x0, x1, bottom, row.at(j + 1)) }
-    }
-  }
-]
-
-#page(flipped: true)[
-  #at(155.8, 133.3)[Quadro 1 – Caracterização das escolas acompanhadas no inventário]
-  #{
-    let columns = (85.0, 260.1, 435.2, 610.3)
-    let tops = (140.3, 156.1, 171.9, 187.7, 203.6, 219.3, 235.1, 251.0, 266.7, 282.5, 298.4, 314.1, 339.2, 354.9, 380.0, 395.7, 439.2, 454.9)
-    let rows = (
-      ([], strong[EMEF São Paulo], strong[EEIEF Arasaty], strong[EEEM Gonçalves Lêdo]),
-      ([Número de salas de aula], [10], [4], [5]),
-      ([Biblioteca], [sim], [Sim], [sim]),
-      ([Laboratórios], [não], [Não], [sim]),
-      ([Refeitório], [sim], [Sim], [sim]),
-      ([Pátio], [sim], [Sim], [sim]),
-      ([Horta], [não], [Não], [não]),
-      ([Rede de internet], [sim], [Sim], [sim]),
-      ([Atendimento Educacional Especializado], [sim], [Não], [sim]),
-      ([Sala de Recursos Multifuncionais], [sim], [Não], [sim]),
-      ([Outros espaços], [Padaria; consultório médico/odontológico], [Não], [sala de jogos]),
-      ([Etapas], [Educação infantil e Ensino Fundamental (anos \ finais e iniciais)], [Educação infantil e Ensino Fundamental \ (anos finais e iniciais)], [Ensino Médio]),
-      ([Número de estudantes], [90], [21], [95]),
-      ([Turmas], [9 turmas, sendo o 1° e o 2° anos \ multisseriados], [5 turmas multisseriadas, sendo 1°, 2° e 3° anos \ juntos; 4° e 5°; 6° e 7°; 8° e 9°], [7 turmas, sem multisseriação]),
-      ([Número de profissionais da educação], [20 docentes e 1 agente educadora], [2 docentes não indígenas e 1 docente indígena], [8 docentes]),
-      ([Composição da equipe diretiva], [diretor, vice, orientador educacional e \ supervisora escolar; o diretor e vice são \ escolhidos por eleição.], [diretora, supervisora escolar e cacique da \ aldeia; os diretores, supervisores e professores \ não indígenas são indicados pela SEDUC e \ aprovados ou não pelo cacique], [diretor, vice e supervisora escolar; o diretor e \ vice são escolhidos por eleição]),
-      ([Instrumentos de gestão democrática], [Conselho escolar e CPM], [Conselho escolar até o início do presente ano], [Conselho escolar e CPM]),
-      ([Programas educacionais que a escola \ desenvolve], [PNLD, PNATE, PNAE, PETIntegral, PDDE \ Básico e PDDE Qualidade.], [PNLD, PNAE, PDDE Básico e PDDE \ Equidade.], [PNLD, PNATE, PNAE, PETIntegral, PDDE \ Básico e PDDE Qualidade.]),
-    )
-
-    for top in tops { hline(85.0, 786.3, top, 0.95pt) }
-    hline(85.0, 786.3, 480.0, 0.9pt)
-    for x in columns + (785.4,) { vline(x, 140.3, 480.9, 0.9pt) }
-    for (top, row) in tops.zip(rows) {
-      for (x, body) in columns.zip(row) {
-        at(x + 3.3, top + 13.0, size: 8pt, spacing: 1, justify: false, body)
+      cell(85.0, 182.5, 420.1, strong[Municípios])
+      for (x0, x1, title) in groups { cell(x0, x1, 420.6, strong(title)) }
+      for (j, (x0, x1)) in columns.slice(1).enumerate() {
+        cell(x0, x1, 441.3, strong(if calc.even(j) [Urbana] else [Rural]))
+      }
+      for (i, row) in rows.enumerate() {
+        let bottom = 461.3 + i * 15
+        at(89.1, bottom, size: 11pt, row.at(0))
+        for (j, (x0, x1)) in columns.slice(1).enumerate() { cell(x0, x1, bottom, row.at(j + 1)) }
       }
     }
-  }
+  ],
+)
+
+#page(flipped: true)[
+  #illustration(
+    [Caracterização das escolas acompanhadas no inventário],
+    kind: "quadro",
+    source: [Elaboração própria],
+    supplement: [Quadro],
+    anchored(140.3, 481.0)[
+      #{
+        let columns = (85.0, 260.1, 435.2, 610.3)
+        let tops = (140.3, 156.1, 171.9, 187.7, 203.6, 219.3, 235.1, 251.0, 266.7, 282.5, 298.4, 314.1, 339.2, 354.9, 380.0, 395.7, 439.2, 454.9)
+        let rows = (
+          ([], strong[EMEF São Paulo], strong[EEIEF Arasaty], strong[EEEM Gonçalves Lêdo]),
+          ([Número de salas de aula], [10], [4], [5]),
+          ([Biblioteca], [sim], [Sim], [sim]),
+          ([Laboratórios], [não], [Não], [sim]),
+          ([Refeitório], [sim], [Sim], [sim]),
+          ([Pátio], [sim], [Sim], [sim]),
+          ([Horta], [não], [Não], [não]),
+          ([Rede de internet], [sim], [Sim], [sim]),
+          ([Atendimento Educacional Especializado], [sim], [Não], [sim]),
+          ([Sala de Recursos Multifuncionais], [sim], [Não], [sim]),
+          ([Outros espaços], [Padaria; consultório médico/odontológico], [Não], [sala de jogos]),
+          ([Etapas], [Educação infantil e Ensino Fundamental (anos \ finais e iniciais)], [Educação infantil e Ensino Fundamental \ (anos finais e iniciais)], [Ensino Médio]),
+          ([Número de estudantes], [90], [21], [95]),
+          ([Turmas], [9 turmas, sendo o 1° e o 2° anos \ multisseriados], [5 turmas multisseriadas, sendo 1°, 2° e 3° anos \ juntos; 4° e 5°; 6° e 7°; 8° e 9°], [7 turmas, sem multisseriação]),
+          ([Número de profissionais da educação], [20 docentes e 1 agente educadora], [2 docentes não indígenas e 1 docente indígena], [8 docentes]),
+          ([Composição da equipe diretiva], [diretor, vice, orientador educacional e \ supervisora escolar; o diretor e vice são \ escolhidos por eleição.], [diretora, supervisora escolar e cacique da \ aldeia; os diretores, supervisores e professores \ não indígenas são indicados pela SEDUC e \ aprovados ou não pelo cacique], [diretor, vice e supervisora escolar; o diretor e \ vice são escolhidos por eleição]),
+          ([Instrumentos de gestão democrática], [Conselho escolar e CPM], [Conselho escolar até o início do presente ano], [Conselho escolar e CPM]),
+          ([Programas educacionais que a escola \ desenvolve], [PNLD, PNATE, PNAE, PETIntegral, PDDE \ Básico e PDDE Qualidade.], [PNLD, PNAE, PDDE Básico e PDDE \ Equidade.], [PNLD, PNATE, PNAE, PETIntegral, PDDE \ Básico e PDDE Qualidade.]),
+        )
+
+        for top in tops { hline(85.0, 786.3, top, 0.95pt) }
+        hline(85.0, 786.3, 480.0, 0.9pt)
+        for x in columns + (785.4,) { vline(x, 140.3, 480.9, 0.9pt) }
+        for (top, row) in tops.zip(rows) {
+          for (x, body) in columns.zip(row) {
+            at(x + 3.3, top + 13.0, size: 8pt, spacing: 1, justify: false, body)
+          }
+        }
+      }
+    ],
+  )
 ]
 
 = Tempo livre
@@ -1146,12 +1147,9 @@ artesanais e produtos derivados do leite produzidos nas propriedades rurais.
 
 A produção de hortaliças, milho, mandioca, feijão e frutas também integra o \
 cotidiano das famílias agricultoras, sendo utilizada tanto para o consumo próprio \
-quanto para a comercialização em feiras locais. O aproveitamento de alimentos#jl
-
-#pagebreak()
-
-#noindent[cultivados nas propriedades reforça práticas de sustentabilidade, segurança alimentar \
-e valorização da agricultura familiar.]
+quanto para a comercialização em feiras locais. O aproveitamento de alimentos \
+cultivados nas propriedades reforça práticas de sustentabilidade, segurança alimentar \
+e valorização da agricultura familiar.
 
 A culinária regional ultrapassa a dimensão alimentar, constituindo um \
 patrimônio cultural transmitido entre gerações por meio dos conhecimentos sobre \
@@ -1205,11 +1203,8 @@ históricos e as ações responsáveis pela pelo êxodo dos Mbyás?]
 #a[Na zona próxima à Laguna dos Patos e Lago Guaíba viviam os \
 “Arachanes” e “Tapes” desde os tempos pré-cabralinos. Estes povos originários \
 descobriram na região o próprio Lago Guaíba como reza a Lenda da Flor de Aguapé, \
-sendo os primeiros habitantes desta região. Com a fixação dos povoadores#jl]
-
-#pagebreak()
-
-estancieiros, houve o êxodo dos mbyá guarani para outras regiões.
+sendo os primeiros habitantes desta região. Com a fixação dos povoadores \
+estancieiros, houve o êxodo dos mbyá guarani para outras regiões.]
 
 #blank(1)
 
@@ -1250,11 +1245,8 @@ o atendimento educacional.]
 
 #q[Existem práticas escolares de interação entre estes jovens e adultos?]
 
-#a[O Estado procura de certa forma, mas acredito que a educação ocorre#jl]
-
-#pagebreak()
-
-somente para as crianças e dentro da cultura deles.
+#a[O Estado procura de certa forma, mas acredito que a educação ocorre \
+somente para as crianças e dentro da cultura deles.]
 
 #blank(1)
 
@@ -1296,12 +1288,9 @@ objetivo na vida.]
 #blank(1)
 
 #q[Conforme descrito no seu livro, o professor organizava polígrafos montados \
-com auxílio de mimeógrafos, denominados Estudos Guaibenses (mesmo nome do#jl]
-
-#pagebreak()
-
+com auxílio de mimeógrafos, denominados Estudos Guaibenses (mesmo nome do \
 livro), no qual era dirigido a professores que atuavam em Guaíba. Como era visto e \
-aceito esse material pelos professores, escolas e mantenedora?
+aceito esse material pelos professores, escolas e mantenedora?]
 
 #a[Sim, era o que tinha na época. Fiz pesquisas intensas e produzia os \
 materiais. Auxiliava desta forma meus colegas de magistério, sendo que se formavam \
@@ -1335,11 +1324,8 @@ de arroios e conflitos com as aldeias indígenas?]
 #a[Economicamente vejo boas expectativas, mas ecologicamente não devido \
 a degradação do meio ambiente onde várias áreas com resquícios de mata nativa \
 acabaram desaparecendo por conta da grande área de eucaliptos, ressecando o solo \
-de alguma forma, sem contar que os cursos hidrográficos não são mais confiáveis#jl]
-
-#pagebreak()
-
-com relação a qualidade da água para os seres vivos.
+de alguma forma, sem contar que os cursos hidrográficos não são mais confiáveis \
+com relação a qualidade da água para os seres vivos.]
 
 #blank(1)
 
@@ -1378,11 +1364,8 @@ infraestrutura, saneamento, água potável e proteção de seus territórios.]
 região?]
 
 #a[Como já mencionei, a indústria, com destaque a CMPC, economicamente \
-é um setor muito forte para a região, mas ecologicamente é um agressor da natureza#jl]
-
-#pagebreak()
-
-na questão da poluição, sendo um aspecto negativo.
+é um setor muito forte para a região, mas ecologicamente é um agressor da natureza \
+na questão da poluição, sendo um aspecto negativo.]
 
 #blank(1)
 
@@ -1448,10 +1431,6 @@ percurso.* _Trabalho, Educação e Saúde_, Rio de Janeiro, v. 7, n. 1, p. 35-64
 CARVALHO et al., Ana Paula Comin de. *Desigualdades de gênero, raça e \
 etnia* – Curitiba, PR: Intersaberes, 2013.
 
-#pagebreak()
-
-#v(2.1pt)
-
 CAVALCANTI, Lanes de Souza. *Cotidiano, mediação pedagógica e \
 formação de conceitos: uma contribuição de Vygotsky ao ensino de Geografia.* \
 Cad. Ceder, Campinas, vol.25, n.66, p.185-207, maio/agosto 2005.
@@ -1497,10 +1476,6 @@ PREFEITURA MUNICIPAL DE GUAÍBA. História. Disponível em: \
 campo: reflexões para a formação docente.* Educação & Realidade, Porto Alegre, \
 v. 40, n. 3, p. 685 704, jul./set. 2015]
 
-#pagebreak()
-
-#v(2.1pt)
-
 LIBÂNEO, José Carlos. *Didática.* São Paulo: Cortez , 1992.
 
 #ref36[MAPA GUARANI. 2017. 280 mil indígenas Guarani vivem em quatro países, \
@@ -1545,10 +1520,6 @@ REPÓRTER GUAIBENSE. Guaíba e região têm quase 500 indígenas, diz \
 Censo 2022. Repórter Guaibense, 07 ago. 2023. Disponível em: \
 https://www.reporterguaibense.com.br/noticia/guaiba-e-regiao-tem-quase-500-\
 indigenas-diz-censo-2022. Acesso em: 10 jul. 2026.
-
-#pagebreak()
-
-#v(2.1pt)
 
 #par(justify: true, linebreaks: "optimized")[RIO GRANDE DO SUL. *Decreto nº 7.675, de 07 de janeiro de 1939.* Porto \
 Alegre, RS: Secretaria de Estado dos Negócios de Educação e Saúde Pública, 07 de#jl
