@@ -77,6 +77,13 @@
   }))
 }
 
+// Ancora no fluxo do texto um trecho posicionado em coordenadas da página: o
+// trecho entre `top` e `bottom` passa a ocupar esse espaço onde o fluxo estiver.
+#let anchored(top, bottom, body) = block(
+  width: 100%,
+  height: pt(bottom - top),
+  move(dy: margin-top - pt(top), body),
+)
 #let centered(bottom, body, size: 12pt) = at(
   margin-left, bottom, size: size, width: 100%,
   align(center, body),
@@ -94,9 +101,39 @@
   rect(width: thickness, height: pt(y1 - y0), fill: black, stroke: none),
 )
 
-#let chapter(lead, num, title) = noindent[#h(lead)#box(width: 36pt, strong(num))#strong(title)]
-#let section(num, title) = pad(left: 28.35pt, noindent[#box(width: 43.65pt, num)#title])
-#let subsection(lead, num, title, tab: 33.7pt) = noindent[#h(lead)#box(width: tab, strong(num))#strong(title)]
+#set heading(numbering: "1.1")
+#show heading: set text(size: 12pt)
+// Título de seção primária, conforme o modelo da UFRGS: começa em nova página,
+// em negrito e maiúsculas, com o indicativo numérico alinhado à margem esquerda,
+// e é separado do texto que o sucede por uma linha em branco de espaçamento 1,5.
+#show heading.where(level: 1): it => {
+  pagebreak(weak: true)
+  block(below: pitch, par(
+    first-line-indent: 0pt,
+    hanging-indent: 6.3mm,
+    justify: false,
+    strong[#box(width: 6.3mm, counter(heading).display(it.numbering))#upper(it.body)],
+  ))
+}
+// Título de seção secundária: em maiúsculas, sem negrito, com o indicativo
+// numérico alinhado à margem esquerda, e separado do texto que o precede e do
+// que o sucede por uma linha em branco de espaçamento 1,5.
+#show heading.where(level: 2): set text(weight: "regular")
+#show heading.where(level: 2): it => block(above: pitch, below: pitch, par(
+  first-line-indent: 0pt,
+  hanging-indent: 10mm,
+  justify: false,
+  [#box(width: 10mm, counter(heading).display(it.numbering))#upper(it.body)],
+))
+// Título de seção terciária: em negrito, com o indicativo numérico alinhado à
+// margem esquerda, e separado do texto que o precede e do que o sucede por uma
+// linha em branco de espaçamento 1,5.
+#show heading.where(level: 3): it => block(above: pitch, below: pitch, par(
+  first-line-indent: 0pt,
+  hanging-indent: 12.5mm,
+  justify: false,
+  [#box(width: 12.5mm, counter(heading).display(it.numbering))#it.body],
+))
 #let item(marker, body, left: 54pt) = pad(left: left, par(first-line-indent: 0pt, hanging-indent: 18pt)[#box(width: 18pt, marker)#body])
 // O texto visível de um link, dividido nas linhas que ocupa.
 #let url(target, ..lines) = link(target, text(fill: rgb("#1155cc"), underline(offset: 1.8pt, stroke: 0.86pt, lines.pos().join(linebreak()))))
@@ -116,10 +153,7 @@
 #centered(745.8)[Eldorado do Sul]
 #centered(766.4)[2026]
 
-#pagebreak()
-
-#chapter(36pt)[1][INTRODUÇÃO]
-#v(2.3pt)
+= Introdução
 
 Um inventário da realidade é uma ferramenta metodológica utilizada para o \
 levantamento e registro organizado de aspectos materiais ou imateriais de uma \
@@ -157,8 +191,6 @@ curriculares.]
 #item[g)][Tempo livre: Atividades de crianças e jovens no período em que não \
 estão na escola.]
 
-#pagebreak()
-
 A partir da exploração iniciada no semestre anterior, ampliamos nosso olhar
 
 para além da aldeia Mbyá Guarani Tape Porã e da EEIEF Arasaty para \
@@ -194,17 +226,16 @@ município — muitas vezes diariamente — para reproduzir seus modos de vida, 
 
 Geograficamente, podemos considerar que o território analisado faz parte da \
 Costa Doce Gaúcha, uma região do estado do Rio Grande do Sul que abrange os \
-municípios situados ao longo da margem oeste da Lagoa dos Patos e do Lago Guaíba,#jl
-
-#pagebreak()
-
-#noindent[caracterizada pelo encontro de ecossistemas campestres e florestais (Mata Atlântica \
+municípios situados ao longo da margem oeste da Lagoa dos Patos e do Lago Guaíba, \
+caracterizada pelo encontro de ecossistemas campestres e florestais (Mata Atlântica \
 e Pampa), possuindo importância histórica e cultural singular, sendo habitada \
-milenarmente pelos Mbyás.]
+milenarmente pelos Mbyás.
 #blank(2)
 #noindent[Fig.1 Mapa feito pela turma do 6º. Ano da EMEF São Paulo, referenciando a aldeia \
 Guarani com a qual compartilha o território rural de Guaíba, junho/2026.]
-#figure-at(85.0, 269.56, 453.65pt, 269.75pt, "01")
+#blank(1)
+#v(6.9pt)
+#block(image("figuras/01.jpg", width: 453.65pt, height: 269.75pt, fit: "stretch"))
 
 #pagebreak()
 
@@ -233,9 +264,7 @@ onde se alega a falta de consulta prévia às comunidades Mbyá enquanto a Funai
 relata que líderes das aldeias supostamente afetadas se manifestaram de forma \
 favorável à continuidade do licenciamento.
 
-#blank(3)
-#chapter(36pt)[2][PANORAMA MBYÁ GUARANI]
-#v(2.1pt)
+= Panorama Mbyá Guarani
 
 No estado do Rio Grande do Sul havia a presença de três grandes grupos \
 indígenas: Guaranis, Pampeanos e Ges. Antes mesmo da chegada dos europeus, \
@@ -252,12 +281,9 @@ XVIII o Rio Grande do Sul passou a ser mais disputado entre espanhóis e \
 portugueses, o que contribuiu para que estas populações sofressem ainda mais \
 resultando em violenta redução demográfica. Antes do começo da conquista através \
 da força das terras pertencentes aos Guaranis estima-se que viviam no Sul do Brasil \
-em regiões que hoje conhecemos como Bacia Hidrográfica do Lago Guaíba, cerca de#jl
-
-#pagebreak()
-
-#noindent[250 mil índios (Brandão, 1990, p.54). Alguns antropólogos discordam e chegam a \
-calcular seis vezes este número.]
+em regiões que hoje conhecemos como Bacia Hidrográfica do Lago Guaíba, cerca de \
+250 mil índios (Brandão, 1990, p.54). Alguns antropólogos discordam e chegam a \
+calcular seis vezes este número.
 
 A dinâmica populacional e os processos migratórios foram estratégias \
 fundamentais para a sobrevivência e preservação da cultura Guarani frente às \
@@ -292,8 +318,6 @@ horticultura, a criação de animais e o comércio de artesanato, complementando
 com as atividades de subsistência como a caça, a pesca e a coleta e o emprego de \
 mão-de-obra como diarista ou por empreitada (Laroque, 2002).
 
-#pagebreak()
-
 Segundo dados do Instituto Brasileiro de Geografia e Estatística (IBGE), no ano \
 de 2022, Guaíba tinha 94 indígenas da etnia Guarani, Eldorado do Sul 58, Mariana \
 Pimentel 79 e, Barra do Ribeiro 263 é o maior município da região em número de \
@@ -310,10 +334,7 @@ desenvolvimento e na historicidade destes povos originários (autóctones), \
 principalmente em aspectos relativos à sua cultura, demografia e preservação como \
 grupo humano e social (Apêndice A).
 
-#pagebreak()
-
-#chapter(36pt)[3][RECURSOS NATURAIS]
-#v(2.3pt)
+= Recursos naturais
 
 O relevo da região é predominantemente plano e suavemente ondulado, \
 caracterizado pela transição entre o Escudo Sul-rio-grandense (com áreas de morros \
@@ -349,12 +370,9 @@ localizado na Região Metropolitana de Porto Alegre, o município também aprese
 forte influência de áreas de transição e fragmentos do bioma Mata Atlântica. O Pampa \
 é caracterizado pelas extensas formações campestres (campos nativos) essenciais \
 para a biodiversidade regional. Os ecótonos ocorrem em áreas de morros, como na \
-região do Parque Natural Municipal Morro José Lutzenberger, abrigando#jl
-
-#pagebreak()
-
-#noindent[remanescentes florestais que servem de refúgio para espécies ameaçadas, a exemplo \
-do bugio-ruivo.]
+região do Parque Natural Municipal Morro José Lutzenberger, abrigando \
+remanescentes florestais que servem de refúgio para espécies ameaçadas, a exemplo \
+do bugio-ruivo.
 
 Sendo banhado pelo sistema do Lago Guaíba, conta com várzeas e banhados \
 que funcionam como reguladores ambientais e abrigam uma rica fauna e flora \
@@ -371,18 +389,14 @@ Pedras, arroio do Salso;]
 #item(left: 18pt)[d)][Microbacia do Arroio Ribeiro Pequeno: Ribeiro Pequeno Arroio do Moinho e \
 Barracão.]
 #item(left: 18pt)[e)][Microbacia do arroio Ribeiro: arroio Cadeia, arroio da Estiva; Açude dos Garcia.]
-#v(15.6pt)
-#noindent[#box(width: 28.3pt)[3.1]CASCATA DO PORTUGUÊS]
-#v(15.6pt)
+== Cascata do Português
 
 A Cascata do Português (Figura 4) é um dos principais destinos de ecoturismo \
 da Costa Doce, localizada a cerca de 7 km do centro de Mariana Pimentel e a apenas \
 80 km de Porto Alegre. É uma propriedade particular muito procurada por famílias e \
 entusiastas do campismo.
 
-#v(15.6pt)
-#section[3.2][PEDRA EQUILIBRADA]
-#v(15.6pt)
+== Pedra Equilibrada
 
 #set par(first-line-indent: indent(35.4pt))
 Situada a cerca de 7 km do centro, a Pedra Equilibrada (Figura 5) é uma \
@@ -404,8 +418,7 @@ panorâmica da região de morros.
 
 #pagebreak()
 
-#section[3.3][MORRO DO PAPALÉO]
-#v(15.6pt)
+== Morro do Papaléo
 
 O Morro do Papaléo é um dos mais importantes sítios paleontológicos e \
 geológicos do sul do Brasil. Localiza-se no município de Mariana Pimentel, muito \
@@ -423,10 +436,7 @@ científico e educativo, desde então dezenas de pesquisas vêm sendo realizadas
 local. Também apresenta alto risco de degradação, razão pela qual sua preservação \
 é considerada prioritária.
 
-#v(15.6pt)
-#section[3.4][RESERVA PARTICULAR DO PATRIMÔNIO NATURAL FEDERAL \
-MARIANA PIMENTEL]
-#v(15.6pt)
+== Reserva Particular do Patrimônio Natural Federal Mariana Pimentel
 
 A Reserva Particular do Patrimônio Natural Federal Mariana Pimentel (RPPN \
 Federal Mariana Pimentel) é uma unidade de conservação de domínio privado \
@@ -452,9 +462,7 @@ recuperação de ecossistemas e educação ambiental. Também contribui para a \
 formação de corredores ecológicos e para a preservação dos serviços ambientais, \
 como a proteção do solo, das nascentes e da qualidade da água.
 
-#v(15.6pt)
-#section[3.5][CERRO NEGRO]
-#v(15.6pt)
+== Cerro Negro
 
 #set par(first-line-indent: indent(35.4pt))
 Cerro Negro é um morro e atrativo natural localizado no município de Mariana \
@@ -471,9 +479,7 @@ propostas de Zoneamento de Proteção do Patrimônio Natural do Plano Diretor \
 Municipal de Mariana Pimentel, visando assegurar sua preservação e disciplinar os \
 usos compatíveis com a conservação da paisagem e da biodiversidade.
 
-#v(15.6pt)
-#section[3.6][SERRINHA]
-#v(15.6pt)
+== Serrinha
 
 A Serrinha é uma pequena região situada entre o sudoeste de Guaíba e o \
 noroeste de Barra do Ribeiro, recortada pelo Arroio Capivara em duas encostas, em \
@@ -505,12 +511,8 @@ entre os municípios de Guaíba e Barra do Ribeiro.
 à esquerda. Abaixo, Fig.7, o Cerro Negro, em segundo plano.]
 #figure-at(77.9, 555.85, 431.03pt, 220.1pt, "08")
 
-#pagebreak()
-
-#pad(left: -7.15pt, noindent(strong[3\. ORGANIZAÇÃO SOCIOPOLÍTICA]))
-#v(15.7pt)
-#noindent[#box(width: 28.3pt)[3.7]CAPELAS E IGREJAS]
-#v(15.5pt)
+= Organização sociopolítica
+== Capelas e igrejas
 
 Na área rural e em bairros próximos encontram-se capelas que exercem \
 importante papel comunitário:
@@ -538,10 +540,8 @@ encontros de agricultores, bailes e eventos tradicionalistas.
 #pagebreak()
 
 #noindent[Fig. Igreja Assembléia de Deus do Nabor]
-#figure-at(85.0, 117.77, 453.65pt, 328.8pt, "10")
-#v(512.3pt - 117.7pt - pitch)
-#noindent[3.8 CEMITÉRIO PASSO GRANDE]
-#v(15.6pt)
+#block(image("figuras/10.jpg", width: 453.65pt, height: 328.8pt, fit: "stretch"))
+== Cemitério Passo Grande
 
 O Cemitério Passo Grande é um pequeno cemitério rural localizado na \
 comunidade de Passo Grande, no município de Barra do Ribeiro, muito próximo da \
@@ -556,8 +556,7 @@ identidade comunitária e para a preservação da memória das gerações locais
 
 #pagebreak()
 
-#section[3.8][ALDEIAS MBYÁ]
-#v(15.7pt)
+== Aldeias Mbyá
 
 O território possui as seguintes aldeias Mbyá Guarani:
 
@@ -602,9 +601,7 @@ Eldorado do Sul e Guaíba. Estão em situação bastante vulnerável, às \
 margens da rodovia, com casas feitas de lona. Segundo Rafael Netto, \
 técnico da Emater/RS de Guaíba, (com. pessoal) no momento vivem ali \
 seis famílias, que têm alguma relação com a Tekoá Tape Porã.]
-#v(14.1pt)
-#subsection(1.65pt)[3.8.1][Duplicação de rodovias]
-#v(3.9pt)
+=== Duplicação de rodovias
 
 #set par(first-line-indent: indent(35.4pt))
 A situação atual dos Mbyá Guarani no Rio Grande do Sul envolve graves \
@@ -623,9 +620,7 @@ ação do MPF e da Defensoria Pública da União, a Justiça Federal determinou 
 órgão federal adquira um terreno de 300 hectares para realocação definitiva e \
 reconstrução da aldeia.
 
-#v(14.1pt)
-#subsection(36.85pt, tab: 35.1pt)[3.8.2][Organização das aldeias e comunidades]
-#v(3.9pt)
+=== Organização das aldeias e comunidades
 
 Nas comunidades Mbyá da região as moradias são feitas de madeira ou pau-\
 a-pique feito com taquara. Em relação às casas tradicionais dos guaranis Mbya, eles \
@@ -633,24 +628,25 @@ próprios comentam - “Nossas casas são feitas de taquara e palmeira. Usamos b
 mexido para fazer as paredes. O uso dessas casas é comum entre os guaranis, \
 porque ajuda a eliminar a fumaça da fogueira que fazemos para nos aquecer, porque \
 a fumaça sai pelo teto e pelas paredes. Aprendemos a construir as casas com nossos \
-pais e também ensinamos para os nossos filhos. As casas de taquara e de barro#jl
-
-#pagebreak()
-
-#noindent[fazem parte da cultura guarani”. Existem algumas edificações em alvenaria nas \
+pais e também ensinamos para os nossos filhos. As casas de taquara e de barro \
+fazem parte da cultura guarani”. Existem algumas edificações em alvenaria nas \
 comunidades, a maioria resquício da ocupação dos antigos proprietários das áreas \
 adquiridas pelo DNIT. As escolas Sepé Tiaraju e Arasaty são construções de \
 alvenaria, sendo a primeira construída para a finalidade escolar, enquanto segunda \
-reaproveita o prédio de uma casa já existente no local.]
-#figure-at(85.0, 228.16, 473.18pt, 354.9pt, "11")
-#at(85.0, 606.5, spacing: 1.16, width: 100%)[Fig. 7 Alunos da EEEM Gonçalves Lêdo e alunos da Tekoa Mirim em frente à escola \
-EEIEF Cacique Sepé Tiaraju, em Mariana Pimentel, território compartilhado, \
-maio/2026.]
+reaproveita o prédio de uma casa já existente no local.
 
-#pagebreak()
+#blank(1)
+#v(6.86pt)
+#block(image("figuras/11.jpg", width: 473.18pt, height: 354.9pt, fit: "stretch"))
+#v(7.5pt)
+#block[
+  #set text(..edges(1.16))
+  #noindent[Fig. 7 Alunos da EEEM Gonçalves Lêdo e alunos da Tekoa Mirim em frente à escola \
+  EEIEF Cacique Sepé Tiaraju, em Mariana Pimentel, território compartilhado, \
+  maio/2026.]
+]
 
-#chapter(0pt)[4][EDUCAÇÃO E ORGANIZAÇÃO ESCOLAR]
-#v(7.1pt)
+= Educação e organização escolar
 
 A educação nesse território compartilhado — que compreende áreas rurais dos \
 municípios de Guaíba, Eldorado do Sul, Mariana Pimentel e Barra do Ribeiro — deve \
@@ -1008,11 +1004,8 @@ Mirim, onde vivem os colegas guarani.
   por um deles.
 ]
 #v(452.5pt - margin-top - pitch)
-#section[4.1][DADOS ESTATÍSTICOS SOBRE EDUCAÇÃO BÁSICA NOS \
-MUNICÍPIOS ESTUDADOS]
-#v(15.7pt)
-#subsection(1.65pt)[4.1.1][Guaíba]
-#v(4pt)
+== Dados estatísticos sobre educação básica nos municípios estudados
+=== Guaíba
 
 O município de Guaíba possui 66 escolas de ensino básico, sendo 30 \
 municipais, 15 estaduais e 21 privadas. Destas, apenas 4 se encontram na zona rural, \
@@ -1025,15 +1018,11 @@ rurais.
 Em relação aos docentes, em 2025, o município contava com 1.100 \
 profissionais, dos quais 44 trabalhavam nas escolas rurais.
 
-#v(13.9pt)
-#subsection(1.65pt)[4.1.2][Mariana Pimentel]
-#v(4.1pt)
+=== Mariana Pimentel
 
 O município de Mariana Pimentel possui 6 escolas de ensino básico, sendo 4 \
 municipais e 2 estaduais. Destas, 3 se encontram na zona rural, sendo 2 municipais \
 e 1 estadual.
-
-#pagebreak()
 
 Em 2025, o número de matrículas no ensino básico do município foi de 635 \
 estudantes. Deste total, 172 estudantes estavam matriculados nas escolas rurais.
@@ -1041,9 +1030,7 @@ estudantes. Deste total, 172 estudantes estavam matriculados nas escolas rurais.
 Em relação aos docentes, em 2025, o município contava com 47 profissionais, \
 dos quais 18 trabalhavam nas escolas rurais.
 
-#v(14pt)
-#subsection(36.85pt, tab: 35.1pt)[4.1.3][Barra do Ribeiro]
-#v(4pt)
+=== Barra do Ribeiro
 
 O município da Barra do Ribeiro possui 15 escolas de ensino básico, sendo 5 \
 municipais, 6 estaduais e 4 privadas. Destas, 6 se encontram na zona rural, sendo 2 \
@@ -1057,34 +1044,37 @@ dos quais 36 trabalhavam nas escolas rurais.
 
 #set par(first-line-indent: indent(36pt))
 
-#at(92.1, 399.8)[Tabela 1 – Relação do número de escolas, estudantes e docentes por município]
-#{
-  let cell(x0, x1, bottom, body) = at(x0, bottom, size: 11pt, width: x1 - x0, align(center, body))
-  let columns = ((85.0, 182.5), (183.3, 253.0), (253.7, 309.6), (310.4, 375.3), (376.0, 425.2), (426.0, 489.3), (490.1, 537.7))
-  let groups = ((183.3, 309.6, "N° Escolas"), (310.4, 425.2, "N° Estudantes"), (426.0, 537.7, "N° Docentes"))
-  let rows = (
-    ("Guaíba", "62", "4", "18977", "312", "1056", "44"),
-    ("Mariana Pimentel", "3", "3", "463", "172", "29", "18"),
-    ("Barra do Ribeiro", "9", "6", "1866", "355", "117", "36"),
-  )
+#v(15.6pt)
+#anchored(379.1, 494.0)[
+  #at(92.1, 399.8)[Tabela 1 – Relação do número de escolas, estudantes e docentes por município]
+  #{
+    let cell(x0, x1, bottom, body) = at(x0, bottom, size: 11pt, width: x1 - x0, align(center, body))
+    let columns = ((85.0, 182.5), (183.3, 253.0), (253.7, 309.6), (310.4, 375.3), (376.0, 425.2), (426.0, 489.3), (490.1, 537.7))
+    let groups = ((183.3, 309.6, "N° Escolas"), (310.4, 425.2, "N° Estudantes"), (426.0, 537.7, "N° Docentes"))
+    let rows = (
+      ("Guaíba", "62", "4", "18977", "312", "1056", "44"),
+      ("Mariana Pimentel", "3", "3", "463", "172", "29", "18"),
+      ("Barra do Ribeiro", "9", "6", "1866", "355", "117", "36"),
+    )
 
-  hline(85.0, 538.4, 406.7, 0.7pt)
-  for x in (309.6, 425.2, 537.7) { vline(x, 407.4, 422.4, 0.8pt) }
-  hline(182.5, 538.7, 422.4, 1pt)
-  hline(182.5, 538.1, 447.2, 0.9pt)
-  hline(85.0, 538.1, 493.3, 0.7pt)
+    hline(85.0, 538.4, 406.7, 0.7pt)
+    for x in (309.6, 425.2, 537.7) { vline(x, 407.4, 422.4, 0.8pt) }
+    hline(182.5, 538.7, 422.4, 1pt)
+    hline(182.5, 538.1, 447.2, 0.9pt)
+    hline(85.0, 538.1, 493.3, 0.7pt)
 
-  cell(85.0, 182.5, 420.1, strong[Municípios])
-  for (x0, x1, title) in groups { cell(x0, x1, 420.6, strong(title)) }
-  for (j, (x0, x1)) in columns.slice(1).enumerate() {
-    cell(x0, x1, 441.3, strong(if calc.even(j) [Urbana] else [Rural]))
+    cell(85.0, 182.5, 420.1, strong[Municípios])
+    for (x0, x1, title) in groups { cell(x0, x1, 420.6, strong(title)) }
+    for (j, (x0, x1)) in columns.slice(1).enumerate() {
+      cell(x0, x1, 441.3, strong(if calc.even(j) [Urbana] else [Rural]))
+    }
+    for (i, row) in rows.enumerate() {
+      let bottom = 461.3 + i * 15
+      at(89.1, bottom, size: 11pt, row.at(0))
+      for (j, (x0, x1)) in columns.slice(1).enumerate() { cell(x0, x1, bottom, row.at(j + 1)) }
+    }
   }
-  for (i, row) in rows.enumerate() {
-    let bottom = 461.3 + i * 15
-    at(89.1, bottom, size: 11pt, row.at(0))
-    for (j, (x0, x1)) in columns.slice(1).enumerate() { cell(x0, x1, bottom, row.at(j + 1)) }
-  }
-}
+]
 
 #page(flipped: true)[
   #at(155.8, 133.3)[Quadro 1 – Caracterização das escolas acompanhadas no inventário]
@@ -1123,8 +1113,7 @@ dos quais 36 trabalhavam nas escolas rurais.
   }
 ]
 
-#chapter(0pt)[5][TEMPO LIVRE]
-#v(2.3pt)
+= Tempo livre
 
 No território encontram-se importantes espaços de convivência comunitária e \
 de valorização da cultura tradicionalista gaúcha, destacando-se o parque de rodeios \
@@ -1145,9 +1134,7 @@ recreativos e comunitários. Além de promover a integração entre moradores de
 diferentes faixas etárias, o campo fortalece os vínculos sociais e contribui para a \
 manutenção da identidade comunitária, desempenhando papel significativo na vida \
 social da população rural da região.]
-#v(15.7pt)
-#noindent[#box(width: 28.5pt)[5.1]CULINÁRIA TÍPICA RURAL]
-#v(15.6pt)
+== Culinária típica rural
 
 Os hábitos alimentares locais refletem a influência das tradições gaúchas, \
 açorianas, indígenas, africanas e das diversas correntes de imigração europeia que \
