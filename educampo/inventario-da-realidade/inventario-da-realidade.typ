@@ -1,6 +1,7 @@
-// Layout mirrors the original Word document: Arial (via the metric-compatible
-// Liberation Sans), 12pt, 1.5 line spacing, 3cm left margin, justified text and
-// greedy line breaking. Page breaks are explicit so every page matches.
+// O leiaute reproduz o documento original do Word: Arial (por meio da Liberation
+// Sans, de métricas compatíveis), 12pt, espaçamento 1,5 entre linhas e texto
+// justificado. As quebras de linha e de página são explícitas, para que cada
+// página corresponda ao original.
 
 #let authors = (
   "Alan Dhoni Garcia do Nascimento",
@@ -14,13 +15,13 @@
   author: authors,
 )
 
-// Word's line box: `n` times the font's line height (ascender + descender +
-// line gap), with the text sitting on its bottom.
+// Caixa de linha do Word: `n` vezes a altura de linha da fonte (ascendente +
+// descendente + entrelinha), com o texto apoiado na base.
 #let edges(n) = (top-edge: n * 1.1499em - 0.212em, bottom-edge: -0.212em)
-// ABNT NBR 14724 margins.
+// Margens da ABNT NBR 14724.
 #let margins = (left: 30mm, right: 20mm, top: 30mm, bottom: 20mm)
-// Word's header line, though empty on most pages, pushes the body below the
-// top margin.
+// A linha do cabeçalho do Word, embora vazia, empurra o corpo do texto para
+// abaixo da margem superior.
 #let header-height = 4.2mm
 #let margin-left = margins.left
 #let margin-top = margins.top + header-height
@@ -29,8 +30,8 @@
 #set page(
   paper: "a4",
   margin: (..margins, top: margin-top),
-  // As in ABNT NBR 14724, the cover is neither counted nor numbered; the
-  // number sits at the top right, 2cm from the top edge.
+  // Conforme a ABNT NBR 14724, a capa não é contada nem numerada; o número
+  // fica no canto superior direito, a 2cm da borda superior.
   foreground: context {
     let n = here().page() - 1
     if n > 0 {
@@ -39,7 +40,7 @@
     }
   },
 )
-#set text(lang: "pt", font: "Liberation Sans", size: 12pt, hyphenate: false, kerning: false, overhang: false, ..edges(1.5))
+#set text(lang: "pt", region: "br", font: "Liberation Sans", size: 12pt, hyphenate: false, kerning: false, overhang: false, ..edges(1.5))
 #set par(
   justify: true,
   linebreaks: "optimized",
@@ -48,22 +49,23 @@
   first-line-indent: (amount: 36pt, all: true),
   justification-limits: (spacing: (min: 60%, max: 150%), tracking: (min: 0pt, max: 0pt)),
 )
-// Line breaks follow the original document, whose lines are kept as source
-// lines ending in `\`; justified lines may have their spaces compressed.
+// As quebras de linha seguem o documento original, cujas linhas são mantidas
+// no código-fonte terminadas em `\`; nas linhas justificadas, os espaços podem
+// ser comprimidos.
 #set linebreak(justify: true)
 #set block(spacing: 0pt)
 #set smartquote(enabled: false)
 
 #let blank(n) = v(n * pitch)
-// Coordinates taken from the reference PDF are given as bare numbers in points.
+// Coordenadas tiradas do PDF original, dadas como números sem unidade, em pontos.
 #let pt(value) = if type(value) == length { value } else { value * 1pt }
-// Ends a paragraph that continues on the next page with a justified line.
+// Encerra com uma linha justificada um parágrafo que continua na página seguinte.
 #let jl = linebreak(justify: true)
 #let noindent(body) = par(first-line-indent: 0pt, body)
 #let indent(amount) = (amount: amount, all: true)
 
-// Absolute positioning, in page coordinates: `x` is the left edge and
-// `bottom` the bottom of the first line box.
+// Posicionamento absoluto, em coordenadas da página: `x` é a borda esquerda e
+// `bottom`, a base da caixa da primeira linha.
 #let at(x, bottom, body, size: 12pt, spacing: 1.5, width: auto, justify: true) = {
   let y = pt(bottom) - spacing * 1.1499 * size
   let width = if type(width) in (int, float) { pt(width) } else { width }
@@ -96,7 +98,7 @@
 #let section(num, title) = pad(left: 28.35pt, noindent[#box(width: 43.65pt, num)#title])
 #let subsection(lead, num, title, tab: 33.7pt) = noindent[#h(lead)#box(width: tab, strong(num))#strong(title)]
 #let item(marker, body, left: 54pt) = pad(left: left, par(first-line-indent: 0pt, hanging-indent: 18pt)[#box(width: 18pt, marker)#body])
-// The visible text of a link, split in the lines it occupies.
+// O texto visível de um link, dividido nas linhas que ocupa.
 #let url(target, ..lines) = link(target, text(fill: rgb("#1155cc"), underline(offset: 1.8pt, stroke: 0.86pt, lines.pos().join(linebreak()))))
 
 // Capa
