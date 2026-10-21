@@ -340,12 +340,12 @@ horticultura, a criação de animais e o comércio de artesanato, complementando
 com as atividades de subsistência como a caça, a pesca e a coleta e o emprego de \
 mão-de-obra como diarista ou por empreitada (Laroque, 2002).
 
-Segundo dados do Instituto Brasileiro de Geografia e Estatística (IBGE), no ano \
-de 2022, Guaíba tinha 94 indígenas da etnia Guarani, Eldorado do Sul 58, Mariana \
-Pimentel 79 e, Barra do Ribeiro 263 é o maior município da região em número de \
-indígenas, de acordo com o censo. A região é a que possui mais escolas indígenas \
-no Rio Grande do Sul, segundo o mesmo levantamento. (REPÓRTER GUAIBENSE, \
-2023; INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA, 2022).
+Segundo dados do Instituto Brasileiro de Geografia e Estatística (IBGE), no ano
+de 2022, Guaíba tinha 94 indígenas da etnia Guarani, Eldorado do Sul 58, Mariana
+Pimentel 79 e, Barra do Ribeiro 263 é o maior município da região em número de
+indígenas, de acordo com o censo. A região é a que possui mais escolas indígenas
+no Rio Grande do Sul, segundo o mesmo levantamento. (Repórter Guaibense,
+2023; Instituto Brasileiro de Geografia e Estatística, 2022).
 
 Convidamos o prof. Valdivino Rodrigues da Silva, renomado pesquisador, \
 escritor e historiador da região, com inúmeras publicações e artigos, a contribuir com \
@@ -405,7 +405,7 @@ microbacias:
 #item(left: 18pt)[b)][Microbacia do Arroio Capivara: arroio Capivara, arroio Itira, arroio Galego, \
 arroio Lagoão, arroio Santa Luzia, sanga do Souza. O Arroio Capivara ou _das \
 Capivaras_ faz divisa entre os municípios de Guaíba e Barra do Ribeiro e passa \
-na Terra Indígena da Tekoa Tape Porã, onde fica a escola Arasaty.]
+na Terra Indígena da Tekoá Tape Porã, onde fica a escola Arasaty.]
 #item(left: 18pt)[c)][Microbacia do Arroio Grande: arroio Grande, arroio Terra Dura, arroio das \
 Pedras, arroio do Salso;]
 #item(left: 18pt)[d)][Microbacia do Arroio Ribeiro Pequeno: Ribeiro Pequeno Arroio do Moinho e \
@@ -659,7 +659,7 @@ alvenaria, sendo a primeira construída para a finalidade escolar, enquanto a se
 reaproveita o prédio de uma casa já existente no local.
 
 #illustration(
-  [Alunos da EEEM Gonçalves Lêdo e alunos da Tekoa Mirim em frente à escola EEIEF Cacique Sepé Tiaraju, em Mariana Pimentel, território compartilhado, maio/2026],
+  [Alunos da EEEM Gonçalves Lêdo e alunos da Tekoá Mirim em frente à escola EEIEF Cacique Sepé Tiaraju, em Mariana Pimentel, território compartilhado, maio/2026],
   photo("10-alunos-na-sepe-tiaraju", 100%),
   source: [Cabral (2026)],
 )
@@ -836,23 +836,23 @@ com um prédio novo financiado, construído em uma área cedida em regime de \
 comodato pelo proprietário de uma das fazendas locais (Sr. Walter Herz). Esse fato \
 fortaleceu sua oferta de ensino, tornando-a uma escola-polo em 1995.
 
-As situações descritas para o contexto rural dos três municípios convergem \
-com o que foi evidenciado por Bremm (2015), que relata uma reconfiguração política \
-e econômica no Brasil a partir da década de 1990, que afetou as escolas do campo. \
-Nesse período, foram adotadas políticas neoliberais com o intuito de reduzir o \
-tamanho do Estado e aumentar sua eficiência, estabelecendo um Estado mínimo para \
-as políticas sociais (trabalho e educação) e máximo para o capital (JANATA; ANHAIA, \
-2015). Isso levou o governo federal a aprofundar a contenção de gastos sociais e \
-educacionais, condicionando o repasse de recursos à apresentação de projetos \
-municipais de efetivação da nucleação escolar e ao consequente fechamento de \
-escolas rurais com baixo número de estudantes. Na maioria dos casos, o argumento \
-principal em defesa da nucleação girava em torno da melhoria da qualidade do ensino \
-oferecido às crianças do meio rural e da insuficiência de alunos para manter as turmas \
-abertas. No entanto, a autora levantou dados bibliográficos que apontam também para \
-objetivos como a racionalização de custos do poder público, a descentralização dos \
-deveres educacionais do Estado e uma formação escolar voltada majoritariamente ao \
-trabalho urbano, o que acabou por ocasionar o desenraizamento dos sujeitos do \
-campo (BREMM, 2015 _apud_ PASTORIO, 2015; JANATA; ANHAIA, 2015).
+As situações descritas para o contexto rural dos três municípios convergem
+com o que foi evidenciado por Bremm (2015), que relata uma reconfiguração política
+e econômica no Brasil a partir da década de 1990, que afetou as escolas do campo.
+Nesse período, foram adotadas políticas neoliberais com o intuito de reduzir o
+tamanho do Estado e aumentar sua eficiência, estabelecendo um Estado mínimo para
+as políticas sociais (trabalho e educação) e máximo para o capital (Janata; Anhaia,
+2015). Isso levou o governo federal a aprofundar a contenção de gastos sociais e
+educacionais, condicionando o repasse de recursos à apresentação de projetos
+municipais de efetivação da nucleação escolar e ao consequente fechamento de
+escolas rurais com baixo número de estudantes. Na maioria dos casos, o argumento
+principal em defesa da nucleação girava em torno da melhoria da qualidade do ensino
+oferecido às crianças do meio rural e da insuficiência de alunos para manter as turmas
+abertas. No entanto, a autora levantou dados bibliográficos que apontam também para
+objetivos como a racionalização de custos do poder público, a descentralização dos
+deveres educacionais do Estado e uma formação escolar voltada majoritariamente ao
+trabalho urbano, o que acabou por ocasionar o desenraizamento dos sujeitos do
+campo (Bremm, 2015 _apud_ Pastorio, 2015; Janata; Anhaia, 2015).
 
 No contexto do Rio Grande do Sul, esse processo assume contornos
 particulares, articulando-se à histórica presença da agricultura familiar e,
@@ -912,7 +912,7 @@ EEIEF Cacique Sepé Tiaraju quanto na EEIEF Arasaty, as classes são bilíngues,
 compostas por professores juruá (não indígenas) e professores Mbyá Guarani (prof. \
 Carmem De Antoni, diretora da escola Arasaty, com. pessoal). A região ainda carece \
 de uma escola indígena de Ensino Médio, embora já exista aprovação para o início \
-dessa modalidade na EEIEF Tekoa Porã (que passará a ser EEEM Tekoa Porã), na \
+dessa modalidade na EEIEF Tekoá Porã (que passará a ser EEEM Tekoá Porã), na \
 aldeia homônima, situada na região do Douradilho, em Barra do Ribeiro (prof. Nelson \
 da Silva, diretor na Escola Cacique Sepé Tiaraju). Até que isso se concretize, os \
 estudantes indígenas que desejam prosseguir os estudos precisam se matricular nas \
@@ -1415,7 +1415,7 @@ BRASIL. Conselho Nacional de Educação. Câmara de Educação Básica. \
 complementares, normas e princípios para o desenvolvimento de políticas públicas \
 de atendimento da Educação Básica do Campo. Brasília, DF: MEC/CNE, 2008.
 
-#par(justify: true, linebreaks: "optimized")[BREEM, Cristina. *As políticas educacionais de nucleação das escolas \
+#par(justify: true, linebreaks: "optimized")[BREMM, Cristina. *As políticas educacionais de nucleação das escolas \
 rurais/do campo no município de São Paulo das Missões/RS.* Artigo apresentado \
 como requisito para a aprovação na disciplina de Trabalho de Conclusão de Curso II,#jl
 Licenciatura em Ciências Sociais, UFSM, 2015.]
