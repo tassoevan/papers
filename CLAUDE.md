@@ -10,7 +10,7 @@ Papers written by Tasso Evangelista, as Typst sources with their generated PDFs.
 
 ## Building
 
-- Typst is pinned through `mise` (`mise.toml`). Run it as `mise exec -- typst …`, since the bare shim may not resolve.
+- Typst and Poppler (`pdfinfo`, `pdftoppm`, `pdftotext`) are pinned through `mise` (`mise.toml`); `mise install` fetches them. Run them as `mise exec -- <tool> …`, since the bare shims may not resolve.
 - `mise run pdf` rebuilds every PDF. To rebuild one file the same way:
 
   ```sh
@@ -22,8 +22,8 @@ Papers written by Tasso Evangelista, as Typst sources with their generated PDFs.
 
 ## Verifying changes
 
-- Compile without warnings, and check that the page count changed only when expected (`pdfinfo`).
-- Look at the pages that changed: render them with `pdftoppm` and inspect the images. Use `pdftotext` to check text, numbering and cross-references.
+- Compile without warnings, and check that the page count changed only when expected (`mise exec -- pdfinfo …`).
+- Look at the pages that changed: render them with `mise exec -- pdftoppm …` and inspect the images. Use `mise exec -- pdftotext …` to check text, numbering and cross-references.
 
 ## Conventions
 
