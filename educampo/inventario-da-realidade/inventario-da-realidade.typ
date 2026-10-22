@@ -1,7 +1,7 @@
-// O texto segue o documento original do Word: Arial (por meio da Liberation Sans,
-// de métricas compatíveis), 12pt, espaçamento 1,5 entre linhas e texto
-// justificado. Títulos, ilustrações e paginação seguem o modelo de trabalho
-// acadêmico da UFRGS (ABNT NBR 14724).
+// Formatação conforme o modelo de trabalho acadêmico da UFRGS (ABNT NBR 14724):
+// Arial (por meio da Liberation Sans, de métricas compatíveis), 12pt,
+// espaçamento 1,5 entre linhas e texto justificado. As convenções estão
+// descritas em ../ABNT.md; as decisões deste documento, em README.md.
 
 #let authors = (
   "Alan Dhoni Garcia do Nascimento",
@@ -15,13 +15,12 @@
   author: authors,
 )
 
-// Caixa de linha do Word: `n` vezes a altura de linha da fonte (ascendente +
-// descendente + entrelinha), com o texto apoiado na base.
+// Caixa de linha com espaçamento `n`: `n` vezes a altura de linha da fonte
+// (ascendente + descendente + entrelinha), com o texto apoiado na base.
 #let edges(n) = (top-edge: n * 1.1499em - 0.212em, bottom-edge: -0.212em)
 // Margens da ABNT NBR 14724.
 #let margins = (left: 30mm, right: 20mm, top: 30mm, bottom: 20mm)
-// A linha do cabeçalho do Word, embora vazia, empurra o corpo do texto para
-// abaixo da margem superior.
+// Distância entre a margem superior e o início do corpo do texto.
 #let header-height = 4.2mm
 #let margin-left = margins.left
 #let margin-top = margins.top + header-height
@@ -51,7 +50,7 @@
 #set smartquote(enabled: false)
 
 #let blank(n) = v(n * pitch, weak: true)
-// Coordenadas tiradas do PDF original, dadas como números sem unidade, em pontos.
+// Coordenadas absolutas, dadas como números sem unidade, em pontos.
 #let pt(value) = if type(value) == length { value } else { value * 1pt }
 #let noindent(body) = par(first-line-indent: 0pt, body)
 #let indent(amount) = (amount: amount, all: true)
