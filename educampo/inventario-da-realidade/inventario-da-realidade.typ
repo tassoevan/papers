@@ -587,7 +587,7 @@ Possui a EEIEF Arasaty.]
 Ribeiro, mais especificamente assentado na região da localidade
 conhecida como Coxilha da Cruz (com acessos rurais frequentemente
 referenciados por vias locais, como a estrada Passo Menequini). Possui
-a EEIEF Teko'a Porã.]
+a EEIEF Tekoá Porã.]
 #item[d)][_Tekoá Yvy Poty (“flor da terra”)._ Localizada na área rural do município
 de Barra do Ribeiro na localidade conhecida como Douradilho, com seu
 acesso principal referenciado na Estrada da Cabanha. Possui a EEIEF
