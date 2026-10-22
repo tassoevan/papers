@@ -75,6 +75,7 @@ tipo (Figura 1, 2…; Tabela 1…; Quadro 1…).
 ## Referências
 
 - Sobrenome do autor em maiúsculas, seguido dos prenomes: "BREMM, Cristina.".
-- Alinhadas somente à margem esquerda.
-- A NBR 6023 pede espaçamento simples, sem recuo, com uma linha em branco simples
-  entre as referências.
+- Alinhadas somente à margem esquerda, em espaçamento simples, sem recuo e
+  separadas entre si por uma linha em branco de espaçamento simples.
+- O título REFERÊNCIAS é separado da primeira referência por uma linha em branco
+  de espaçamento 1,5.

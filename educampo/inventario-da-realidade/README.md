@@ -61,8 +61,6 @@ mise exec -- typst compile --creation-timestamp "$(date -r "$f" +%s)" "$f"
 
 ## Em aberto
 
-- As referências usam espaçamento de 1,35 linha e recuo de primeira linha. A NBR
-  6023 pede espaçamento simples, sem recuo e com uma linha em branco entre elas.
 - As medidas *(estimadas)* em [../ABNT.md](../ABNT.md) podem ser conferidas no
   arquivo original do modelo da UFRGS, se estiver disponível.
 - O documento não tem os elementos pré-textuais da NBR 14724 (folha de rosto,

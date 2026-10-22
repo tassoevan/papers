@@ -1367,11 +1367,12 @@ para a prática de sua cultura.]
 #pagebreak()
 
 #align(center, strong[REFERÊNCIAS])
-#v(36.4pt - 1.35 * 1.1499 * 12pt)
+#blank(1)
 
-#set text(..edges(1.35))
-#set par(justify: false, first-line-indent: indent(35.4pt))
-#let ref36(body) = par(first-line-indent: indent(36pt), body)
+// Referências conforme a NBR 6023: alinhadas à esquerda, em espaçamento simples,
+// sem recuo e separadas por uma linha em branco de espaçamento simples.
+#set text(..edges(1))
+#set par(justify: false, first-line-indent: 0pt, spacing: 1.1499 * 12pt)
 
 ARROYO, Miguel Gonzalez. *Outros sujeitos, outras pedagogias.* 2. ed.
 Petrópolis: Vozes, 2012.
@@ -1450,7 +1451,7 @@ Disponível em: \<#url("https://ibge.gov.br/")>. Acesso em: 18 mar. 2019.
 INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA (IBGE). Censo
 Demográfico 2022: população indígena — resultados por município. Brasília: IBGE,
 2022\. Disponível em: https://www.ibge.gov.br/brasil-indigena/. Acesso em: 10 jul.
-2026.
+2026\.
 
 LAROQUE, Luís Fernando da Silva. *Guaíba no Contexto Histórico –
 Arqueológico do Rio Grande do Sul.* Guaíba: Ed. do Autor, 2002.192p. In:
@@ -1464,19 +1465,19 @@ v. 40, n. 3, p. 685-704, jul./set. 2015
 
 LIBÂNEO, José Carlos. *Didática.* São Paulo: Cortez, 1992.
 
-#ref36[MAPA GUARANI. 2017. 280 mil indígenas Guarani vivem em quatro países,
+MAPA GUARANI. 2017. 280 mil indígenas Guarani vivem em quatro países,
 diz pesquisa que será apresentada hoje no ATL. 27 de abril de 2017. Disponível em:
 \<#url("https://racismoambiental.net.br/2017/04/27/280-mil-indigenas-guarani-vivem-em-quatro-paises-da-america-do-sul-diz-pesquisa-que-sera-apresentada-hoje-no-atl/")>.
-Acesso em: 20 mar. 2019.]
+Acesso em: 20 mar. 2019.
 
-#ref36[MARIANA PIMENTEL. Prefeitura. *Turismo em Ação: Dica de Turismo!*
+MARIANA PIMENTEL. Prefeitura. *Turismo em Ação: Dica de Turismo!*
 Disponível em:
 \<#url("https://www.marianapimentel.rs.gov.br/noticias_ver.php?id_noticia=1112")>. Acesso
-em: 10 jul. 2026.]
+em: 10 jul. 2026.
 
-#ref36[MIRÓ, Carmen A. Políticas de população na América Latina em meados de
+MIRÓ, Carmen A. Políticas de população na América Latina em meados de
 1985: um panorama confuso. *Revista Brasileira de Estudos de População*, v. 4, n.
-1, p. 87–94, 3 ago. 1987.]
+1, p. 87–94, 3 ago. 1987.
 
 MOLNAR, Pedro. Após anos de abandono, capela histórica do Petim
 completa 76 anos e volta a receber fiéis neste domingo. *Repórter Guaibense*, 22
@@ -1484,7 +1485,7 @@ jan. 2026.
 
 MOREIRA, João Carlos; SENE, Eustáquio de. *Geografia Geral e do Brasil:
 Espaço Geográfico e Globalização: Ensino Médio.* 3.ed. São Paulo: Scipione,
-2016.
+2016\.
 
 PASTORIO, Eduardo. *Nucleação das escolas do campo: o caso do
 município de São Gabriel/RS.* UFSM - Programa de Pós-Graduação em Geografia
