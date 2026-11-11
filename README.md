@@ -10,9 +10,12 @@ To rebuild all the PDFs:
 
 ```sh
 mise install   # fetch the pinned Typst and Poppler, once
+git config core.hooksPath .githooks   # enable the pre-commit hook, once
 mise run pdf   # compile every .typ file under the current folder into a PDF next to it
 mise run pdf path/to/file.typ   # or only the given sources
 mise run watch path/to/file.typ # recompile the given sources on every change, until Ctrl-C
 ```
 
-Each PDF gets the author date of the last commit that changed its source as its creation timestamp, so rebuilding an unchanged source produces a byte-identical PDF, even after checkouts or rebases. Sources with uncommitted changes use their modification time instead. `watch` is meant for drafting and stamps each PDF with its compile time, so run `pdf` again before committing.
+A source that differs from the last commit gets its modification time as the PDF's creation timestamp; an unchanged source reuses the date stored in its committed PDF, so rebuilding it produces a byte-identical PDF, even after checkouts or rebases.
+
+The pre-commit hook rebuilds and stages the PDF of every source whose folder has staged changes, so each commit carries PDFs that match its sources. It refuses the commit if that folder also has unstaged changes, since the PDF is built from the working tree.

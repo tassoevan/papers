@@ -1,0 +1,34 @@
+#!/bin/sh
+# Rebuilds, with `mise run pdf`, the PDF of every Typst source whose folder has
+# staged changes, and stages it, so each commit carries PDFs that match its
+# sources. Enable it with: git config core.hooksPath .githooks
+set -e
+
+staged=$(git diff --cached --name-only --diff-filter=ACMRD)
+[ -n "$staged" ] || exit 0
+
+sources=
+for src in $(git ls-files -- '*.typ'); do
+  dir=$(dirname "$src")
+  pdf=${src%.typ}.pdf
+  # Any staged change in the source's folder, other than its own PDF, can
+  # affect the PDF (figures, included files).
+  printf '%s\n' "$staged" | grep -v -x -F "$pdf" | grep -q -F "$dir/" || continue
+  # The PDF is built from the working tree, so it must match what is staged.
+  if ! git diff --quiet -- "$dir" ':(exclude)*.pdf'; then
+    echo "pre-commit: $dir has unstaged changes; stage or stash them so $pdf matches the commit." >&2
+    exit 1
+  fi
+  sources="$sources $src"
+done
+[ -n "$sources" ] || exit 0
+
+if ! command -v mise >/dev/null 2>&1; then
+  echo "pre-commit: mise not found, so the PDFs can't be rebuilt." >&2
+  exit 1
+fi
+# shellcheck disable=SC2086
+mise run pdf $sources
+for src in $sources; do
+  git add -- "${src%.typ}.pdf"
+done

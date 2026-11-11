@@ -5,10 +5,12 @@ poppler = "26.09.0"
 [env]
 TYPST_FONT_PATHS = "{{config_root}}/fonts"
 
-# Each PDF's creation timestamp is the author date of the last commit that
-# changed its source. Unlike the file's modification time, it survives
-# checkouts, rebases and stashes, so rebuilding an unchanged source gives a
-# byte-identical PDF. Uncommitted or modified sources use their modification time.
+# Each PDF's creation timestamp comes from the source's modification time when
+# the source differs from HEAD. Once committed, rebuilding reuses the date
+# stored in the committed PDF, so an unchanged source gives a byte-identical
+# PDF even after checkouts or rebases, which reset modification times. The
+# pre-commit hook (.githooks/pre-commit) runs this task, so the PDF committed
+# with a source is always the final one.
 [tasks.pdf]
 description = "Regenerate the PDFs from the Typst sources (all of them, or the files given)"
 dir = "{{cwd}}"
@@ -16,12 +18,19 @@ usage = 'arg "[file]" var=#true help="Typst sources to compile; all of them when
 run = '''
 set -e
 timestamp() {
-  if git diff --quiet HEAD -- "$1" 2>/dev/null; then
-    ts=$(git log -1 --format=%at -- "$1")
-  else
-    ts=
+  pdf=${1%.typ}.pdf
+  if git diff --quiet HEAD -- "$1" 2>/dev/null &&
+    git cat-file -e "HEAD:./${pdf#./}" 2>/dev/null; then
+    tmp=$(mktemp)
+    git show "HEAD:./${pdf#./}" > "$tmp"
+    d=$(pdfinfo -isodates "$tmp" | sed -n 's/^CreationDate: *//p')
+    rm -f "$tmp"
+    if [ -n "$d" ]; then
+      date -d "$d" +%s
+      return
+    fi
   fi
-  echo "${ts:-$(date -r "$1" +%s)}"
+  date -r "$1" +%s
 }
 if [ -n "${usage_file:-}" ]; then
   printf '%s\n' $usage_file
@@ -34,8 +43,8 @@ done
 '''
 
 # For drafting: recompiles on every change to the sources or their
-# dependencies. The PDFs get the compile time as timestamp, so run `pdf`
-# again before committing.
+# dependencies. The PDFs get the compile time as timestamp; the pre-commit
+# hook rebuilds them with the `pdf` task when committing.
 [tasks.watch]
 description = "Recompile the given Typst sources whenever they change"
 dir = "{{cwd}}"

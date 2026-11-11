@@ -12,9 +12,9 @@ Papers written by Tasso Evangelista, as Typst sources with their generated PDFs.
 
 - Typst and Poppler (`pdfinfo`, `pdftoppm`, `pdftotext`) are pinned through `mise` (`mise.toml`); `mise install` fetches them. Run them as `mise exec -- <tool> …`, since the bare shims may not resolve.
 - `mise run pdf` rebuilds every PDF under the current folder; `mise run pdf <file.typ>…` rebuilds only the given sources (paths relative to the current folder). Always build through this task rather than calling `typst compile` directly.
-- `mise run watch <file.typ>…` recompiles the given sources on every change, for drafting. It stamps the PDFs with the compile time, so finish with `mise run pdf` before committing.
-- The task stamps each PDF with the author date of the last commit that changed its source, so rebuilding an unchanged source gives a byte-identical PDF, even after checkouts or rebases. A source with uncommitted changes gets its modification time instead.
-- Generated PDFs are committed together with their source. Since the timestamp comes from the commit, the PDF built before committing carries a provisional date: after committing, run `mise run pdf` again and, if the PDF changed, `git commit --amend --no-edit` it in. Amending keeps the author date, so the PDF then stays stable.
+- `mise run watch <file.typ>…` recompiles the given sources on every change, for drafting.
+- A source that differs from HEAD gets its modification time as the PDF's creation timestamp. An unchanged source reuses the date stored in its committed PDF, so rebuilding it gives a byte-identical PDF, even after checkouts or rebases.
+- Generated PDFs are committed together with their source. The pre-commit hook in `.githooks/` does this: it rebuilds the PDF of every source whose folder has staged changes and stages it, and refuses the commit if that folder also has unstaged changes. It is enabled per clone with `git config core.hooksPath .githooks`.
 
 ## Verifying changes
 
