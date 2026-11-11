@@ -1,9 +1,3 @@
 {
-  "cSpell.language": "en,pt,pt-BR",
-  "cSpell.enabledFileTypes": {
-    "*": true,
-    "markdown": true
-  },
-  "cSpell.showAutocompleteDirectiveSuggestions": true,
-  "cSpell.enabled": true
+  "tinymist.fontPaths": ["${workspaceFolder}/fonts"]
 }
