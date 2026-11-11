@@ -5,12 +5,30 @@ poppler = "26.09.0"
 [env]
 TYPST_FONT_PATHS = "{{config_root}}/fonts"
 
+# Each PDF's creation timestamp is the author date of the last commit that
+# changed its source. Unlike the file's modification time, it survives
+# checkouts, rebases and stashes, so rebuilding an unchanged source gives a
+# byte-identical PDF. Uncommitted or modified sources use their modification time.
 [tasks.pdf]
-description = "Regenerate the PDFs from the Typst sources"
+description = "Regenerate the PDFs from the Typst sources (all of them, or the files given)"
+dir = "{{cwd}}"
+usage = 'arg "[file]" var=#true help="Typst sources to compile; all of them when omitted"'
 run = '''
 set -e
-find . -name '*.typ' -not -path './.git/*' | while read -r f; do
+timestamp() {
+  if git diff --quiet HEAD -- "$1" 2>/dev/null; then
+    ts=$(git log -1 --format=%at -- "$1")
+  else
+    ts=
+  fi
+  echo "${ts:-$(date -r "$1" +%s)}"
+}
+if [ -n "${usage_file:-}" ]; then
+  printf '%s\n' $usage_file
+else
+  find . -name '*.typ' -not -path './.git/*'
+fi | while read -r f; do
   echo "$f"
-  typst compile --creation-timestamp "$(date -r "$f" +%s)" "$f"
+  typst compile --creation-timestamp "$(timestamp "$f")" "$f"
 done
 '''

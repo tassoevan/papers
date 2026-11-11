@@ -18,8 +18,7 @@ registra as decisões próprias dele e o que ainda está em aberto.
 Para gerar o PDF, a partir da raiz do repositório:
 
 ```sh
-f=educampo/inventario-da-realidade/inventario-da-realidade.typ
-mise exec -- typst compile --creation-timestamp "$(date -r "$f" +%s)" "$f"
+mise run pdf educampo/inventario-da-realidade/inventario-da-realidade.typ
 ```
 
 ## Decisões

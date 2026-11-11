@@ -11,14 +11,9 @@ Papers written by Tasso Evangelista, as Typst sources with their generated PDFs.
 ## Building
 
 - Typst and Poppler (`pdfinfo`, `pdftoppm`, `pdftotext`) are pinned through `mise` (`mise.toml`); `mise install` fetches them. Run them as `mise exec -- <tool> …`, since the bare shims may not resolve.
-- `mise run pdf` rebuilds every PDF. To rebuild one file the same way:
-
-  ```sh
-  mise exec -- typst compile --creation-timestamp "$(date -r "$f" +%s)" "$f"
-  ```
-
-  Using the source's modification time as the creation timestamp keeps rebuilds of unchanged sources byte-identical.
-- Generated PDFs are committed. Rebuild the PDF and commit it together with its source.
+- `mise run pdf` rebuilds every PDF under the current folder; `mise run pdf <file.typ>…` rebuilds only the given sources (paths relative to the current folder). Always build through this task rather than calling `typst compile` directly.
+- The task stamps each PDF with the author date of the last commit that changed its source, so rebuilding an unchanged source gives a byte-identical PDF, even after checkouts or rebases. A source with uncommitted changes gets its modification time instead.
+- Generated PDFs are committed together with their source. Since the timestamp comes from the commit, the PDF built before committing carries a provisional date: after committing, run `mise run pdf` again and, if the PDF changed, `git commit --amend --no-edit` it in. Amending keeps the author date, so the PDF then stays stable.
 
 ## Verifying changes
 

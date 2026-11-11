@@ -10,7 +10,8 @@ To rebuild all the PDFs:
 
 ```sh
 mise install   # fetch the pinned Typst and Poppler, once
-mise run pdf   # compile every .typ file into a PDF next to it
+mise run pdf   # compile every .typ file under the current folder into a PDF next to it
+mise run pdf path/to/file.typ   # or only the given sources
 ```
 
-Each PDF gets its source's modification time as its creation timestamp, so rebuilding an unchanged source produces a byte-identical PDF.
+Each PDF gets the author date of the last commit that changed its source as its creation timestamp, so rebuilding an unchanged source produces a byte-identical PDF, even after checkouts or rebases. Sources with uncommitted changes use their modification time instead.
