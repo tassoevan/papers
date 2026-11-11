@@ -32,3 +32,22 @@ fi | while read -r f; do
   typst compile --creation-timestamp "$(timestamp "$f")" "$f"
 done
 '''
+
+# For drafting: recompiles on every change to the sources or their
+# dependencies. The PDFs get the compile time as timestamp, so run `pdf`
+# again before committing.
+[tasks.watch]
+description = "Recompile the given Typst sources whenever they change"
+dir = "{{cwd}}"
+usage = 'arg "<file>" var=#true help="Typst sources to watch"'
+run = '''
+# Background jobs ignore Ctrl-C in a non-interactive shell, so stop them on exit.
+pids=
+trap 'kill $pids 2>/dev/null' EXIT
+trap 'exit 130' INT TERM
+for f in $usage_file; do
+  typst watch "$f" &
+  pids="$pids $!"
+done
+wait
+'''
